@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiArrowUpRight, FiCheck } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import type { Product } from "@/lib/products";
+import { fromPrice, type Product } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -41,6 +41,9 @@ export default function ProductCard({ product }: { product: Product }) {
           </Link>
         </h3>
         <p className="mt-1 font-medium text-gray-800">{product.tagline}</p>
+        <p className="mt-3 inline-flex self-start rounded-full bg-gold-light px-3 py-1 text-xs font-semibold text-gold-dark">
+          {product.forWho}
+        </p>
 
         <ul className="mt-4 space-y-1.5 text-sm text-gray-700">
           {product.highlights.map((h) => (
@@ -52,7 +55,8 @@ export default function ProductCard({ product }: { product: Product }) {
         </ul>
 
         <div className="mt-auto pt-6">
-          <p className="text-2xl font-bold text-ink">{product.price ?? "Ask us for price"}</p>
+          <p className="text-2xl font-bold text-ink">{fromPrice(product)}</p>
+          {product.packageNote && <p className="mt-1 text-xs text-gray-500">{product.packageNote}</p>}
           <div className="mt-4 grid gap-2">
             <a
               href={whatsappLink(`Hi MGRC, I'd like to order ${product.name}.`)}

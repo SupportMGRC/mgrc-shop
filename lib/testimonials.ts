@@ -32,3 +32,34 @@ export const testimonials: Testimonial[] = [
     placeholder: true,
   },
 ];
+
+// ─────────────────────────────────────────────────────────────
+// VIDEO TESTIMONIALS — shown on the homepage and on the matching product page.
+// To add one: compress the video (720p MP4), put it and a poster JPG in
+// public/videos/, then add a line below. `product` must match an id in lib/products.ts.
+// ─────────────────────────────────────────────────────────────
+
+export type VideoTestimonial = {
+  product: string; // product id, e.g. "littlegeneius"
+  title: string;
+  src: string;
+  poster: string;
+  duration: string; // shown on the card, e.g. "3:20"
+};
+
+export const videoTestimonials: VideoTestimonial[] = [
+  {
+    product: "littlegeneius",
+    title: "Parent testimonial",
+    src: "/videos/littlegeneius-testimonial-1.mp4",
+    poster: "/videos/littlegeneius-testimonial-1.jpg",
+    duration: "3:20",
+  },
+  {
+    product: "littlegeneius",
+    title: "Parent testimonial",
+    src: "/videos/littlegeneius-testimonial-2.mp4",
+    poster: "/videos/littlegeneius-testimonial-2.jpg",
+    duration: "4:45",
+  },
+];

@@ -13,9 +13,6 @@ export const media = {
   // When set, it becomes a full-width photo behind the headline.
   hero: null as string | null, // e.g. "/images/photos/hero.jpg"
 
-  // Homepage "Made for Malaysian families" — family / parent with child (~1600×1200)
-  family: null as string | null,
-
   // How It Works page — YouTube embed link, e.g. "https://www.youtube.com/embed/VIDEO_ID"
   videoEmbed: null as string | null,
 };

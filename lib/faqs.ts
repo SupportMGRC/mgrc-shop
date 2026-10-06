@@ -1,40 +1,34 @@
-// FAQ list, grouped by topic. The homepage shows the first few; the FAQ page shows all.
-// TODO: confirm every answer with Genomics before launch.
+// FAQ list, grouped by topic. Wording: finalised content file from Genomics (Ting Ning), 6 Oct 2026.
+// Small edits made for the website (Genomics to confirm):
+//  - "saliva sample" changed to "sample" / "cheek swab", as the kit uses a cheek swab
+//  - gift answer: orders are placed on WhatsApp (the site has no checkout)
 
-export type Faq = { q: string; a: string };
+export type Faq = {
+  q: string;
+  a: string;
+  link?: { href: string; label: string }; // optional link shown under the answer
+};
 
 export const faqGroups: { topic: string; items: Faq[] }[] = [
-  {
-    topic: "Ordering",
-    items: [
-      {
-        q: "How do I order?",
-        a: "Tap any “Order via WhatsApp” button. Our team will confirm the price, payment and delivery of your kit.",
-      },
-      {
-        q: "Which test should I choose?",
-        a: "ORIGENE is for adults who want a full picture of their genetic health. LittleGENEius is for children. Dtect PGx shows how your genes affect your medicines. If you're unsure, message us and we'll help you decide.",
-      },
-      {
-        q: "How do I pay?",
-        a: "Our team will share the payment options when you order through WhatsApp.",
-      },
-    ],
-  },
   {
     topic: "Your sample",
     items: [
       {
-        q: "What kind of sample do you need?",
-        a: "A simple cheek swab or saliva sample, depending on the test. The kit comes with step-by-step instructions.",
+        q: "How is the DNA sample collected at home?",
+        a: "Sample collection is quick, simple, and non-invasive. Using the swab provided in your kit, gently rub the inside of your cheeks to collect your sample. Then place the swab into the collection tube, seal it securely, and return it using the envelope. The entire process takes less than two minutes and can be completed in the comfort of your home.",
+        link: { href: "/how-it-works/", label: "See how it works, step by step" },
       },
       {
-        q: "Do I need to visit a clinic?",
-        a: "No. You can collect your sample at home using the kit we send you.",
+        q: "Do I need to fast before collecting my sample?",
+        a: "No fasting is required. However, for best results, we recommend avoiding food, beverages, smoking, or chewing gum for at least 30 minutes before collecting your sample.",
       },
       {
-        q: "Do I need to take the test again in future?",
-        a: "No. Your genes don't change over your lifetime, so it's a one-time test.",
+        q: "Will my sample be sufficient for analysis?",
+        a: "In rare cases, a sample may not contain enough DNA for analysis. If this happens, we may contact you and arrange for a replacement collection kit.",
+      },
+      {
+        q: "Will my DNA change over time?",
+        a: "No. Your DNA remains essentially the same throughout your life, which means your genetic test only needs to be performed once.",
       },
     ],
   },
@@ -42,16 +36,20 @@ export const faqGroups: { topic: string; items: Faq[] }[] = [
     topic: "Results and reports",
     items: [
       {
-        q: "How long until I get my results?",
-        a: "About 15–20 working days after our lab receives your sample.",
+        q: "How long does it take to receive the DNA reports?",
+        a: "Results are typically available within 21 days after our laboratory receives your sample. Once your analysis is complete, we will notify you via WhatsApp and send your DNA reports to your registered email address.",
       },
       {
-        q: "What languages are the reports in?",
-        a: "ORIGENE and LittleGENEius reports are available in English and 中文. Dtect PGx is available in English.",
+        q: "Where do I view my DNA test results?",
+        a: "Your personalised DNA reports will be delivered securely to your registered email address. You can review your results at your convenience on any compatible device.",
       },
       {
-        q: "Is this a medical diagnosis?",
-        a: "No. Genetic screening shows your genetic predisposition, not a diagnosis. Please discuss your results with your doctor before making any health or medication decisions.",
+        q: "Will I receive guidance on my DNA test results?",
+        a: "Yes. Your DNA test includes a complimentary one-to-one report consultation online session. During the session, our team will guide you through your report, explain the insights provided, and answer general questions about your results.",
+      },
+      {
+        q: "Why might my results differ from another DNA test provider's results?",
+        a: "Different DNA testing providers may analyse different genetic markers and use different scientific models when generating reports. As a result, some findings or recommendations may vary. Our reports are based on the genetic markers and methodologies used in our analysis process.",
       },
     ],
   },
@@ -59,17 +57,18 @@ export const faqGroups: { topic: string; items: Faq[] }[] = [
     topic: "Privacy",
     items: [
       {
-        q: "Is my genetic data kept private?",
-        a: "Yes. Your personal and genetic information is handled confidentially, in line with Malaysia's Personal Data Protection Act (PDPA).",
+        q: "How is my genetic data secured and protected?",
+        a: "We prioritize your privacy above all else. Your genetic data is stored securely. We do not sell or share your DNA details with any third parties or insurance providers without your explicit consent. Your sample is anonymized inside our laboratory database using random barcoding.",
       },
     ],
   },
-];
-
-// Picks a few common questions for the homepage
-export const featuredFaqs: Faq[] = [
-  faqGroups[2].items[0],
-  faqGroups[1].items[0],
-  faqGroups[1].items[2],
-  faqGroups[0].items[0],
+  {
+    topic: "Ordering",
+    items: [
+      {
+        q: "Can I buy a DNA test as a gift?",
+        a: "Yes. A DNA test kit makes a thoughtful gift for family members or friends who are interested in learning more about their health and wellness. Simply share the recipient's shipping address when you order with us on WhatsApp, and we will deliver the kit directly to them.",
+      },
+    ],
+  },
 ];

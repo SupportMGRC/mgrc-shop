@@ -4,7 +4,6 @@ import {
   FaClock,
   FaPhoneAlt,
   FaWhatsapp,
-  FaFax,
   FaEnvelope,
   FaFacebookF,
   FaInstagram,
@@ -32,13 +31,12 @@ export default function Footer() {
       lines: [site.whatsappDisplay],
       href: whatsappLink(),
     },
-    { icon: <FaFax />, title: "Fax", lines: [site.fax] },
     { icon: <FaEnvelope />, title: "Email us", lines: [site.email], href: `mailto:${site.email}` },
   ];
 
   return (
     <footer className="bg-night-deep text-gray-300">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2 lg:grid-cols-[1.1fr_1.4fr_0.75fr_0.75fr]">
         {/* Contact details */}
         <div>
           <Image
@@ -75,7 +73,7 @@ export default function Footer() {
           <iframe
             src={site.mapEmbed}
             title="MGRC location map"
-            className="h-48 w-full rounded-lg border-0"
+            className="h-56 w-full rounded-lg border-0"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
@@ -86,7 +84,7 @@ export default function Footer() {
         </div>
 
         {/* Quick links */}
-        <div>
+        <nav aria-label="Footer">
           <p className="mb-4 font-semibold text-white">Explore</p>
           <ul className="space-y-2 text-sm">
             {navLinks.map((l) => (
@@ -94,11 +92,15 @@ export default function Footer() {
                 <Link href={l.href} className="hover:text-gold">{l.label}</Link>
               </li>
             ))}
-            <li>
-              <a href={site.mainSite} className="hover:text-gold">MGRC main website</a>
-            </li>
           </ul>
-        </div>
+          <ul className="mt-5 space-y-2 border-t border-white/10 pt-5 text-sm">
+            {legalLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="hover:text-gold">{l.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         {/* Social links */}
         <div>
@@ -121,18 +123,9 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-xs text-gray-400 md:flex-row md:items-center md:justify-between">
-          <p>
-            Copyright © 2004–{year} {site.company} ({site.regNo}). All rights reserved.
-          </p>
-          <ul className="flex gap-4">
-            {legalLinks.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="hover:text-gold">{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <p className="mx-auto max-w-6xl px-4 py-6 text-xs text-gray-400">
+          Copyright © 2004–{year} {site.company} ({site.regNo}). All rights reserved.
+        </p>
       </div>
     </footer>
   );

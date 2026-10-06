@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import ProductCard from "@/components/ProductCard";
 import CtaBand from "@/components/home/CtaBand";
 import Testimonials from "@/components/home/Testimonials";
-import { products } from "@/lib/products";
+import { products, getProduct } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Our Products | MGRC Shop",
@@ -16,8 +16,13 @@ const rows: { label: string; value: (p: (typeof products)[number]) => string }[]
   { label: "Sample", value: (p) => p.sampleType },
   { label: "Results in", value: (p) => p.turnaround },
   { label: "Report language", value: (p) => p.languages },
-  { label: "Price", value: (p) => p.price ?? "Ask us for price" },
 ];
+
+// Price list rows, in the order Genomics listed them
+const priceRows = ["origene", "dtect-pgx", "littlegeneius"].map((id) => {
+  const p = getProduct(id)!;
+  return { id, name: p.packageNote ? "ORIGENE + Dtect PGx" : p.name, packages: p.packages };
+});
 
 export default function ProductsPage() {
   return (
@@ -67,6 +72,56 @@ export default function ProductsPage() {
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
+
+      {/* Packages and pricing */}
+      <section className="bg-mist py-20">
+        <div className="mx-auto max-w-6xl px-4">
+          <h2 className="font-display text-5xl font-semibold text-ink">Packages and pricing</h2>
+          <p className="mt-3 max-w-2xl text-lg text-gray-600">
+            Every test comes in two packages. Choose a digital report, or add a printed copy to keep.
+          </p>
+
+          <div className="mt-8 overflow-x-auto rounded-2xl border border-gray-200 bg-white">
+            <table className="w-full min-w-[560px] text-left">
+              <thead className="border-b border-gray-200">
+                <tr>
+                  <th scope="col" className="p-5 text-sm font-semibold text-gray-600">Test</th>
+                  <th scope="col" className="p-5">
+                    <span className="block font-display text-2xl font-semibold text-ink">Essential</span>
+                    <span className="text-sm font-normal text-gray-600">Digital report</span>
+                  </th>
+                  <th scope="col" className="bg-gold-light p-5">
+                    <span className="block font-display text-2xl font-semibold text-ink">Premium</span>
+                    <span className="text-sm font-normal text-gray-600">Digital report + printed report</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {priceRows.map((row) => (
+                  <tr key={row.id}>
+                    <th scope="row" className="p-5 font-semibold text-ink">
+                      <Link href={`/products/${row.id}/`} className="hover:text-gold-dark">
+                        {row.name}
+                      </Link>
+                    </th>
+                    {row.packages.map((pkg) => (
+                      <td
+                        key={pkg.tier}
+                        className={`p-5 text-xl font-bold text-ink tabular-nums ${pkg.tier === "Premium" ? "bg-gold-light/50" : ""}`}
+                      >
+                        {pkg.price}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-sm text-gray-500">
+            Every test includes a one-to-one online consultation to go through your report.
+          </p>
         </div>
       </section>
 

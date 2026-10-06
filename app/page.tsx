@@ -1,24 +1,21 @@
 import Hero from "@/components/home/Hero";
-import StatsStrip from "@/components/home/StatsStrip";
-import ProductsSection from "@/components/home/ProductsSection";
-import HowItWorks from "@/components/home/HowItWorks";
-import WhyMgrc from "@/components/home/WhyMgrc";
-import TrustLogos from "@/components/home/TrustLogos";
-import Testimonials from "@/components/home/Testimonials";
-import FaqPreview from "@/components/home/FaqPreview";
+import WhyUs from "@/components/home/WhyUs";
+import TestChooser from "@/components/home/TestChooser";
+import VideoTestimonials from "@/components/VideoTestimonials";
+import StepsStrip from "@/components/home/StepsStrip";
 import CtaBand from "@/components/home/CtaBand";
 
+// The homepage persuades; the other tabs explain. Keep detail (full product info,
+// step-by-step guide, FAQ) on their own pages rather than repeating it here.
+// components/home/TrustLogos.tsx is ready to add back once accreditation logos arrive.
 export default function Home() {
   return (
     <>
       <Hero />
-      <StatsStrip />
-      <ProductsSection />
-      <HowItWorks />
-      <WhyMgrc />
-      <TrustLogos />
-      <Testimonials />
-      <FaqPreview />
+      <WhyUs />
+      <TestChooser />
+      <VideoTestimonials />
+      <StepsStrip />
       <CtaBand />
     </>
   );

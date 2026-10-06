@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FiCheck, FiClock, FiDroplet, FiGlobe, FiFileText } from "react-icons/fi";
+import { FiCheck, FiClock, FiDroplet, FiGlobe, FiFileText, FiExternalLink, FiBookOpen, FiUsers } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import PageHeader from "@/components/PageHeader";
 import ProductCard from "@/components/ProductCard";
 import MediaSlot from "@/components/MediaSlot";
 import HowItWorks from "@/components/home/HowItWorks";
 import Testimonials from "@/components/home/Testimonials";
+import VideoTestimonials from "@/components/VideoTestimonials";
+import { videoTestimonials } from "@/lib/testimonials";
 import CtaBand from "@/components/home/CtaBand";
 import { products, getProduct } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
@@ -33,11 +35,14 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   const facts = [
+    { icon: <FiUsers />, label: "Best for", value: product.forWho },
     { icon: <FiDroplet />, label: "Sample", value: product.sampleType },
     { icon: <FiClock />, label: "Results in", value: product.turnaround },
     { icon: <FiGlobe />, label: "Report language", value: product.languages },
   ];
   const others = products.filter((p) => p.id !== product.id);
+  const hasVideos = videoTestimonials.some((v) => v.product === product.id);
+  const shortName = product.name.replace("®", "");
 
   return (
     <>
@@ -47,10 +52,10 @@ export default async function ProductPage({ params }: Props) {
         crumbs={[{ href: "/products/", label: "Our Products" }]}
       />
 
-      {/* Gallery + buy box */}
+      {/* Cover + buy box */}
       <section className="py-20">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 md:grid-cols-2">
-          <div>
+        <div className="mx-auto grid max-w-6xl items-start gap-12 px-4 md:grid-cols-2">
+          <div className="md:sticky md:top-28">
             {product.photo ? (
               <MediaSlot src={product.photo} alt={`${product.name} kit`} label="" className="aspect-[4/3] rounded-3xl" priority />
             ) : (
@@ -65,26 +70,12 @@ export default async function ProductPage({ params }: Props) {
                 />
               </div>
             )}
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {product.gallery.map((src, i) => (
-                <MediaSlot
-                  key={i}
-                  src={src}
-                  alt={`${product.name} photo ${i + 1}`}
-                  label={`Photo ${i + 1}`}
-                  className="aspect-square rounded-2xl"
-                />
-              ))}
-            </div>
           </div>
 
           <div>
             <p className="text-lg leading-relaxed text-gray-700">{product.description}</p>
-            <p className="mt-4 text-gray-600">
-              <span className="font-semibold text-ink">Best for:</span> {product.forWho}
-            </p>
 
-            <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+            <dl className="mt-8 grid grid-cols-2 gap-3">
               {facts.map((f) => (
                 <div key={f.label} className="rounded-xl bg-mist p-4">
                   <dt className="flex items-center gap-2 text-sm text-gray-600">
@@ -97,8 +88,18 @@ export default async function ProductPage({ params }: Props) {
             </dl>
 
             <div className="mt-8 rounded-2xl border-2 border-gold p-6">
-              <p className="text-sm text-gray-600">Price</p>
-              <p className="text-4xl font-bold text-ink">{product.price ?? "Ask us for price"}</p>
+              {product.packageNote && (
+                <p className="mb-3 text-sm font-semibold text-gold-dark">{product.packageNote}</p>
+              )}
+              <div className="grid gap-3 sm:grid-cols-2">
+                {product.packages.map((pkg) => (
+                  <div key={pkg.tier} className="rounded-xl bg-mist p-4">
+                    <p className="text-sm font-semibold text-gray-600">{pkg.tier}</p>
+                    <p className="mt-1 text-3xl font-bold text-ink">{pkg.price}</p>
+                    <p className="mt-1 text-sm text-gray-600">{pkg.includes}</p>
+                  </div>
+                ))}
+              </div>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <a
                   href={whatsappLink(`Hi MGRC, I'd like to order ${product.name}.`)}
@@ -117,6 +118,43 @@ export default async function ProductPage({ params }: Props) {
                   See sample report
                 </Link>
               </div>
+            </div>
+
+            {/* More about the product: its own website and brochure */}
+            <div className="mt-4 flex flex-wrap gap-3">
+              {product.website && (
+                <a
+                  href={product.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-ink"
+                >
+                  Visit {shortName} website
+                  <FiExternalLink aria-hidden />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              )}
+              {product.brochure ? (
+                <a
+                  href={product.brochure}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-ink"
+                >
+                  <FiBookOpen aria-hidden />
+                  View brochure
+                </a>
+              ) : (
+                // Placeholder until Genomics provides the brochure
+                <span
+                  aria-disabled="true"
+                  className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-dashed border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-400"
+                >
+                  <FiBookOpen aria-hidden />
+                  View brochure
+                  <span className="rounded-full bg-mist px-2 py-0.5 text-xs font-medium text-gray-500">Coming soon</span>
+                </span>
+              )}
             </div>
 
             <p className="mt-6 text-sm leading-relaxed text-gray-500">
@@ -159,7 +197,7 @@ export default async function ProductPage({ params }: Props) {
       </section>
 
       <HowItWorks dark={false} />
-      <Testimonials />
+      {hasVideos ? <VideoTestimonials product={product.id} /> : <Testimonials />}
 
       <section className="py-24">
         <div className="mx-auto max-w-6xl px-4">

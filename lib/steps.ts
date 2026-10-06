@@ -2,13 +2,15 @@
 // Photos: put files in public/images/photos/ and type the path in `photo`.
 // TODO: confirm every step (especially kit delivery and courier) with Genomics.
 
+import { site } from "@/lib/site";
+
 export const steps = [
   {
     title: "Order via WhatsApp",
     photo: null as string | null, // TODO: e.g. someone messaging on phone
     text: "Tell us which test you want. We'll confirm the price, payment and delivery of your kit.",
     detail: [
-      "Tap any “Order via WhatsApp” button on this site, or message us at +6011-5880 4488.",
+      `Tap any “Order via WhatsApp” button on this site, or message us at ${site.whatsappDisplay}.`,
       "Our team confirms your test, price and payment method.",
       "We arrange delivery of your sample collection kit to your address.",
     ],
@@ -16,10 +18,10 @@ export const steps = [
   {
     title: "Collect your sample",
     photo: null as string | null, // TODO: kit being used
-    text: "Use the kit at home. A simple cheek swab or saliva sample, with instructions included.",
+    text: "Use the kit at home. A simple, painless cheek swab, with instructions included.",
     detail: [
-      "Don't eat, drink, smoke or chew gum for 30 minutes before collecting your sample.",
-      "Follow the step-by-step instructions in your kit.",
+      "No fasting needed. Just avoid food, drinks, smoking and chewing gum for 30 minutes before.",
+      "Gently rub the swab on the inside of your cheeks. It takes less than two minutes.",
       "Seal the sample tube and fill in the form included in the kit.",
     ],
   },
@@ -36,11 +38,12 @@ export const steps = [
   {
     title: "Get your report",
     photo: null as string | null, // TODO: person reading report
-    text: "Your personal report is ready in about 15–20 working days.",
+    text: "Your personal report is ready within 21 days.",
     detail: [
       "Our lab analyses your DNA and prepares your personal report.",
-      "Your report is ready in about 15–20 working days after we receive your sample.",
-      "Have questions about your results? Our team is a WhatsApp message away.",
+      "Results are ready within 21 days after our lab receives your sample.",
+      "We'll let you know on WhatsApp and send your report to your registered email.",
+      "A one-to-one online consultation is included to go through your report with you.",
     ],
   },
 ];

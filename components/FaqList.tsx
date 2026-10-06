@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Faq } from "@/lib/faqs";
 
 // Accordion based on HyperUI "FAQs — Divided with chevrons" (MIT licence).
@@ -26,6 +27,14 @@ export default function FaqList({ items, openFirst = false }: { items: Faq[]; op
               </svg>
             </summary>
             <p className="max-w-2xl pt-3 leading-relaxed text-gray-700">{faq.a}</p>
+            {faq.link && (
+              <Link
+                href={faq.link.href}
+                className="mt-3 inline-block font-semibold text-gold-dark underline underline-offset-4"
+              >
+                {faq.link.label}
+              </Link>
+            )}
           </details>
         ))}
       </div>

@@ -6,7 +6,7 @@ import { whatsappLink } from "@/lib/site";
 
 const trustPoints = [
   "20+ years in genomics, listed on Bursa Malaysia",
-  "Collect your sample at home",
+  "Simple cheek swab, collected at home",
   "Reports in English and 中文",
 ];
 
