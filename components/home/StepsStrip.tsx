@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
-import { TbTestPipe2, TbMicroscope, TbFileText } from "react-icons/tb";
+import MaskIcon from "@/components/MaskIcon";
 
 // Homepage one-line summary of the process. The full guide is on How It Works.
 const steps = [
-  { icon: TbTestPipe2, title: "Swab at home", text: "A painless cheek swab, under two minutes" },
-  { icon: TbMicroscope, title: "Our lab analyses it", text: "In our in-house laboratory" },
-  { icon: TbFileText, title: "Report within 21 days", text: "Sent to your email, with a consultation" },
+  { icon: "/images/icons/sample-collection.png", title: "Swab at home", text: "A painless cheek swab, under two minutes" },
+  { icon: "/images/icons/reliability.png", title: "Our lab analyses it", text: "In our in-house laboratory" },
+  { icon: "/images/icons/fast-processing.png", title: "Report within 21 days", text: "Sent to your email, with a consultation" },
 ];
 
 export default function StepsStrip() {
@@ -14,10 +14,10 @@ export default function StepsStrip() {
     <section className="border-b border-gray-200 py-16">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 lg:grid-cols-[1fr_auto]">
         <ol className="grid gap-8 sm:grid-cols-3">
-          {steps.map(({ icon: Icon, title, text }, i) => (
+          {steps.map(({ icon, title, text }, i) => (
             <li key={title} className="flex items-start gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold text-2xl text-ink" aria-hidden>
-                <Icon />
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold text-ink">
+                <MaskIcon src={icon} className="h-8 w-8" />
               </span>
               <div>
                 <p className="text-xs font-semibold text-gray-500 tabular-nums">Step {i + 1}</p>

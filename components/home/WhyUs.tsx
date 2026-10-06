@@ -1,43 +1,35 @@
-import {
-  TbFlask2,
-  TbWorldPin,
-  TbHourglassHigh,
-  TbHeadset,
-  TbTestPipe2,
-  TbShieldLock,
-  TbMicroscope,
-} from "react-icons/tb";
+import MaskIcon from "@/components/MaskIcon";
 
 // "Why Us?" — wording from the Genomics content file, 6 Oct 2026.
-// Icons: Tabler Icons (MIT licence), one style for all seven.
+// Icons: supplied by Genomics, converted to one colour (public/images/icons/).
 const reasons = [
   {
-    icon: TbWorldPin,
+    icon: "/images/icons/asian-populations.png",
     title: "Built for Asian Populations",
     text: "Our genomic analyses are supported by extensive reference data from East and Southeast Asian populations, enabling more relevant insights and interpretations for individuals from the region.",
   },
   {
-    icon: TbHourglassHigh,
+    icon: "/images/icons/fast-processing.png",
     title: "Fast and Efficient Processing",
     text: "Efficient laboratory processes and quality-controlled workflows enable us to deliver reports promptly without compromising accuracy.",
   },
   {
-    icon: TbHeadset,
+    icon: "/images/icons/consultation.png",
     title: "Personalized Genetic Consultation Included",
     text: "Genetic screening services include access to genetic consultation, allowing you to discuss your results and gain a better understanding of your genetic insights.",
   },
   {
-    icon: TbTestPipe2,
+    icon: "/images/icons/sample-collection.png",
     title: "Convenient Sample Collection",
     text: "Samples can be collected easily using a cheek (buccal) swab, making the process simple, non-invasive, and comfortable.",
   },
   {
-    icon: TbShieldLock,
+    icon: "/images/icons/data-privacy.png",
     title: "Your Data Privacy Matters",
     text: "We are committed to safeguarding your personal information and genetic data. All collected information is handled in accordance with the Personal Data Protection Act 2010 (PDPA) and is protected through strict confidentiality and data security practices.",
   },
   {
-    icon: TbMicroscope,
+    icon: "/images/icons/reliability.png",
     title: "High Analytical Reliability",
     text: "Our advanced testing and analytical methodologies are designed to deliver highly accurate and dependable genetic results, ensuring confidence in every report.",
   },
@@ -54,8 +46,8 @@ export default function WhyUs() {
           {/* Lead reason, featured */}
           <article className="flex flex-col justify-between rounded-3xl bg-night p-8 text-white md:col-span-2 lg:col-span-1 lg:row-span-3">
             <div>
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold text-3xl text-ink" aria-hidden>
-                <TbFlask2 />
+              <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gold text-ink">
+                <MaskIcon src="/images/icons/expertise.png" className="h-10 w-10" />
               </span>
               <h3 className="mt-6 font-display text-4xl font-semibold">Expertise Behind Every Insight</h3>
               <p className="mt-4 leading-relaxed text-white/75">
@@ -72,10 +64,10 @@ export default function WhyUs() {
             </p>
           </article>
 
-          {reasons.map(({ icon: Icon, title, text }) => (
+          {reasons.map(({ icon, title, text }) => (
             <article key={title} className="rounded-3xl border border-gray-200 p-7">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-light text-2xl text-gold-dark" aria-hidden>
-                <Icon />
+              <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gold-light text-gold-dark">
+                <MaskIcon src={icon} className="h-10 w-10" />
               </span>
               <h3 className="mt-5 text-lg font-semibold text-ink">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">{text}</p>
