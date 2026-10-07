@@ -43,7 +43,7 @@ export default function TestChooser() {
 
                 <dl className="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-white/55">Age</dt>
+                    <dt className="text-white/55">Age group</dt>
                     <dd className="text-right font-semibold">{p.forWho}</dd>
                   </div>
                   {p.coverage && (
@@ -56,7 +56,7 @@ export default function TestChooser() {
                     <dt className="text-white/55">Price</dt>
                     <dd className="text-right font-semibold">
                       {fromPrice(p)}
-                      {p.packageNote && <span className="block text-xs font-normal text-white/55">with ORIGENE</span>}
+                      {p.packageNote && <span className="block text-xs font-normal text-white/55">with OriGene</span>}
                     </dd>
                   </div>
                 </dl>

@@ -35,7 +35,7 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   const facts = [
-    { icon: <FiUsers />, label: "Best for", value: product.forWho },
+    { icon: <FiUsers />, label: "Age group", value: product.forWho },
     { icon: <FiDroplet />, label: "Sample", value: product.sampleType },
     { icon: <FiClock />, label: "Results in", value: product.turnaround },
     { icon: <FiGlobe />, label: "Report language", value: product.languages },
@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: Props) {
               <div className="grid gap-3 sm:grid-cols-2">
                 {product.packages.map((pkg) => (
                   <div key={pkg.tier} className="rounded-xl bg-mist p-4">
-                    <p className="text-sm font-semibold text-gray-600">{pkg.tier}</p>
+                    <p className="text-sm font-semibold text-gray-600">{pkg.tier} Package</p>
                     <p className="mt-1 text-3xl font-bold text-ink">{pkg.price}</p>
                     <p className="mt-1 text-sm text-gray-600">{pkg.includes}</p>
                   </div>
@@ -134,16 +134,20 @@ export default async function ProductPage({ params }: Props) {
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               )}
-              {product.brochure ? (
-                <a
-                  href={product.brochure}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-ink"
-                >
-                  <FiBookOpen aria-hidden />
-                  View brochure
-                </a>
+              {product.brochures.length > 0 ? (
+                product.brochures.map((b) => (
+                  <a
+                    key={b.href}
+                    href={b.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-ink"
+                  >
+                    <FiBookOpen aria-hidden />
+                    Brochure ({b.label})
+                    <span className="sr-only">(PDF, opens in a new tab)</span>
+                  </a>
+                ))
               ) : (
                 // Placeholder until Genomics provides the brochure
                 <span

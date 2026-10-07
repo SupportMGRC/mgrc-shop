@@ -6,8 +6,8 @@ export const site = {
   regNo: "652790-V",
   hours: "Monday – Friday 8:30 am – 5:30 pm",
   tel: ["+603-7890 0015", "+603-7890 0016"],
-  whatsappDisplay: "+6011-3333 7873",
-  whatsappNumber: "601133337873", // digits only, with country code, no + or dashes
+  whatsappDisplay: "+6011-1310 5761",
+  whatsappNumber: "601113105761", // digits only, with country code, no + or dashes
   email: "genomics@mgrc.com.my",
   address:
     "8F Jalan Teknologi 3/6, Taman Sains Selangor 1, Kota Damansara (PJU5), 47810 Petaling Jaya, Selangor, Malaysia",
@@ -33,6 +33,7 @@ export const navLinks = [
 export const legalLinks = [
   { href: "/privacy-policy/", label: "Privacy Policy" },
   { href: "/terms/", label: "Terms & Conditions" },
+  { href: "/refund-policy/", label: "Refund Policy" },
 ];
 
 // Builds a WhatsApp chat link, optionally with a pre-filled message.

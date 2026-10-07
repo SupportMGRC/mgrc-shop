@@ -1,11 +1,13 @@
 // Central product list — used on the homepage, Our Products page and each product page.
-// Descriptions, ages and prices: content file from Genomics (Ting Ning), 6 Oct 2026.
+// Names, descriptions, ages and prices: exactly as in the Genomics content file (content_06102026.docx).
 
 export type Package = {
   tier: "Essential" | "Premium";
   includes: string; // what the customer gets
   price: string;
 };
+
+export type Brochure = { label: string; href: string };
 
 export type Product = {
   id: string; // also the web address: /products/<id>/
@@ -24,23 +26,23 @@ export type Product = {
   // Shown above the packages when they are for a bundle, not this product alone
   packageNote: string | null;
   website: string | null; // the product's own website, opens in a new tab
-  brochure: string | null; // TODO: brochure file when Genomics provides it (button shows "Coming soon" until then)
+  brochures: Brochure[]; // PDFs in public/brochures/, one per language (button shows "Coming soon" if empty)
   image: string; // report cover (used when no photo yet)
   photo: string | null; // TODO: product/kit photo, e.g. "/images/photos/origene-kit.jpg" (~1200×900)
   sampleReportId: string;
 };
 
-const ESSENTIAL = "Digital report";
-const PREMIUM = "Digital report + printed report";
+const ESSENTIAL = "Digital Report";
+const PREMIUM = "Digital Report + Printed Report";
 
 export const products: Product[] = [
   {
     id: "origene",
-    name: "ORIGENE®", // TODO: Genomics to confirm spelling ("OriGene" in the content file)
+    name: "OriGene®",
     tagline: "A complete look at your genetic health",
     description:
-      "ORIGENE is a comprehensive DNA screening test that analyses selected genetic markers to provide personalised insights into health, wellness, physical traits, fitness, behaviour and disease predispositions across 249 traits in 9 profiles.",
-    forWho: "Ages 13 and above",
+      "OriGene is a comprehensive DNA screening test that analyzes selected genetic markers to provide personalized insights into health, wellness, physical traits, fitness, behavior, and disease predispositions across 249 traits in 9 profiles.",
+    forWho: "Best for ages 13 and above",
     audience: "For you",
     coverage: "249 traits in 9 profiles",
     highlights: ["249 traits in 9 profiles", "Health, wellness, fitness and traits", "Disease predispositions"],
@@ -55,12 +57,15 @@ export const products: Product[] = [
     turnaround: "Within 21 days",
     languages: "English, 中文",
     packages: [
-      { tier: "Essential", includes: ESSENTIAL, price: "RM2,200" },
-      { tier: "Premium", includes: PREMIUM, price: "RM2,450" },
+      { tier: "Essential", includes: ESSENTIAL, price: "RM2200" },
+      { tier: "Premium", includes: PREMIUM, price: "RM2450" },
     ],
     packageNote: null,
     website: "https://origene.com.my/",
-    brochure: null,
+    brochures: [
+      { label: "English", href: "/brochures/origene-en.pdf" },
+      { label: "中文", href: "/brochures/origene-zh.pdf" },
+    ],
     image: "/images/reports/origene-cover.jpg",
     photo: null,
     sampleReportId: "origene",
@@ -71,7 +76,7 @@ export const products: Product[] = [
     tagline: "Discover your child's natural strengths",
     description:
       "LittleGENEius combines genetic screening and AI-driven interpretation to uncover insights across 69 genetically influenced traits, helping parents better understand their child's unique potential and provide more personalised support for their growth and development.",
-    forWho: "Children aged 3–12",
+    forWho: "Best for children aged 3-12 years",
     audience: "For your child",
     coverage: "69 genetically influenced traits",
     highlights: ["69 genetically influenced traits", "Personality, learning and sports potential", "Nutrition and childhood health"],
@@ -89,12 +94,15 @@ export const products: Product[] = [
     turnaround: "Within 21 days",
     languages: "English, 中文",
     packages: [
-      { tier: "Essential", includes: ESSENTIAL, price: "RM1,800" },
-      { tier: "Premium", includes: PREMIUM, price: "RM2,050" },
+      { tier: "Essential", includes: ESSENTIAL, price: "RM1800" },
+      { tier: "Premium", includes: PREMIUM, price: "RM2050" },
     ],
     packageNote: null,
     website: "https://littlegeneius.mgrc.com.my/",
-    brochure: null,
+    brochures: [
+      { label: "English", href: "/brochures/littlegeneius-en.pdf" },
+      { label: "中文", href: "/brochures/littlegeneius-zh.pdf" },
+    ],
     image: "/images/reports/littlegeneius-cover.jpg",
     photo: null,
     sampleReportId: "littlegeneius",
@@ -104,8 +112,8 @@ export const products: Product[] = [
     name: "Dtect® PGx",
     tagline: "How your genes affect your medicines",
     description:
-      "Dtect PGx is a pharmacogenomic DNA screening test that analyses genetic markers associated with drug response and adverse drug reactions, providing information that can help doctors select appropriate medications and dosages based on your genetic profile.",
-    forWho: "All ages",
+      "Dtect PGx is a pharmacogenomic DNA screening test that analyzes genetic markers associated with drug response and adverse drug reactions, providing information that can help doctors select appropriate medications and dosages based on an individual's genetic profile.",
+    forWho: "Suitable for all ages",
     audience: "For your medicines",
     coverage: null,
     highlights: ["Response to common medicines", "Adverse drug reaction risks", "A report to share with your doctor"],
@@ -118,14 +126,14 @@ export const products: Product[] = [
     sampleType: "Cheek swab",
     turnaround: "Within 21 days",
     languages: "English",
-    // TODO: Genomics to confirm a price for Dtect PGx on its own. Until then, the bundle is shown.
+    // Content file lists PGx only as the OriGene + PGx bundle.
     packages: [
-      { tier: "Essential", includes: ESSENTIAL, price: "RM3,000" },
-      { tier: "Premium", includes: PREMIUM, price: "RM3,250" },
+      { tier: "Essential", includes: ESSENTIAL, price: "RM3000" },
+      { tier: "Premium", includes: PREMIUM, price: "RM3250" },
     ],
-    packageNote: "Bundle price: ORIGENE + Dtect PGx",
+    packageNote: "Bundle price: OriGene + PGx",
     website: null,
-    brochure: null,
+    brochures: [{ label: "English", href: "/brochures/dtect-pgx-en.pdf" }],
     image: "/images/reports/dtect-pgx-cover.jpg",
     photo: null,
     sampleReportId: "dtect-pgx",
@@ -136,7 +144,7 @@ export function getProduct(id: string) {
   return products.find((p) => p.id === id);
 }
 
-// "From RM1,800" — lowest package price, for cards and tables
+// "From RM1800" — lowest package price, for cards and tables
 export function fromPrice(p: Product) {
   return `From ${p.packages[0].price}`;
 }

@@ -5,7 +5,7 @@ import MaskIcon from "@/components/MaskIcon";
 // Homepage one-line summary of the process. The full guide is on How It Works.
 const steps = [
   { icon: "/images/icons/sample-collection.png", title: "Swab at home", text: "A painless cheek swab, under two minutes" },
-  { icon: "/images/icons/reliability.png", title: "Our lab analyses it", text: "In our in-house laboratory" },
+  { icon: "/images/icons/expertise.png", title: "Our lab analyses it", text: "In our in-house laboratory" },
   { icon: "/images/icons/fast-processing.png", title: "Report within 21 days", text: "Sent to your email, with a consultation" },
 ];
 

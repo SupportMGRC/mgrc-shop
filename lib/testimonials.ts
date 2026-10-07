@@ -14,7 +14,7 @@ export const testimonials: Testimonial[] = [
     quote: "Customer quote goes here. One or two sentences about their experience with the test and report.",
     name: "Customer name",
     detail: "Location",
-    product: "ORIGENE®",
+    product: "OriGene®",
     placeholder: true,
   },
   {

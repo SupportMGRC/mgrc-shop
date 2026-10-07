@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowUpRight, FiCheck } from "react-icons/fi";
+import { FiArrowUpRight, FiBookOpen, FiCheck } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { fromPrice, type Product } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
@@ -53,6 +53,27 @@ export default function ProductCard({ product }: { product: Product }) {
             </li>
           ))}
         </ul>
+
+        {product.brochures.length > 0 && (
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+            <span className="inline-flex items-center gap-1.5 text-gray-600">
+              <FiBookOpen aria-hidden />
+              Brochure:
+            </span>
+            {product.brochures.map((b) => (
+              <a
+                key={b.href}
+                href={b.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-gold-dark underline underline-offset-4 hover:text-ink"
+              >
+                {b.label}
+                <span className="sr-only"> brochure (PDF, opens in a new tab)</span>
+              </a>
+            ))}
+          </p>
+        )}
 
         <div className="mt-auto pt-6">
           <p className="text-2xl font-bold text-ink">{fromPrice(product)}</p>

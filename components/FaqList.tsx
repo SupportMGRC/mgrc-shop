@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FiArrowRight } from "react-icons/fi";
 import type { Faq } from "@/lib/faqs";
 
 // Accordion based on HyperUI "FAQs — Divided with chevrons" (MIT licence).
@@ -30,9 +31,10 @@ export default function FaqList({ items, openFirst = false }: { items: Faq[]; op
             {faq.link && (
               <Link
                 href={faq.link.href}
-                className="mt-3 inline-block font-semibold text-gold-dark underline underline-offset-4"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-[#e39a2a]"
               >
                 {faq.link.label}
+                <FiArrowRight aria-hidden />
               </Link>
             )}
           </details>

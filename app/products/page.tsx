@@ -8,11 +8,11 @@ import { products, getProduct } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Our Products | MGRC Shop",
-  description: "Compare MGRC genetic tests: ORIGENE, LittleGENEius and Dtect PGx.",
+  description: "Compare MGRC genetic tests: OriGene, LittleGENEius and Dtect PGx.",
 };
 
 const rows: { label: string; value: (p: (typeof products)[number]) => string }[] = [
-  { label: "Best for", value: (p) => p.forWho },
+  { label: "Age group", value: (p) => p.forWho },
   { label: "Sample", value: (p) => p.sampleType },
   { label: "Results in", value: (p) => p.turnaround },
   { label: "Report language", value: (p) => p.languages },
@@ -21,7 +21,7 @@ const rows: { label: string; value: (p: (typeof products)[number]) => string }[]
 // Price list rows, in the order Genomics listed them
 const priceRows = ["origene", "dtect-pgx", "littlegeneius"].map((id) => {
   const p = getProduct(id)!;
-  return { id, name: p.packageNote ? "ORIGENE + Dtect PGx" : p.name, packages: p.packages };
+  return { id, name: p.packageNote ? "OriGene + PGx" : p.name, packages: p.packages };
 });
 
 export default function ProductsPage() {
@@ -89,12 +89,12 @@ export default function ProductsPage() {
                 <tr>
                   <th scope="col" className="p-5 text-sm font-semibold text-gray-600">Test</th>
                   <th scope="col" className="p-5">
-                    <span className="block font-display text-2xl font-semibold text-ink">Essential</span>
-                    <span className="text-sm font-normal text-gray-600">Digital report</span>
+                    <span className="block font-display text-2xl font-semibold text-ink">Essential Package</span>
+                    <span className="text-sm font-normal text-gray-600">Digital Report</span>
                   </th>
                   <th scope="col" className="bg-gold-light p-5">
-                    <span className="block font-display text-2xl font-semibold text-ink">Premium</span>
-                    <span className="text-sm font-normal text-gray-600">Digital report + printed report</span>
+                    <span className="block font-display text-2xl font-semibold text-ink">Premium Package</span>
+                    <span className="text-sm font-normal text-gray-600">Digital Report + Printed Report</span>
                   </th>
                 </tr>
               </thead>
@@ -120,7 +120,10 @@ export default function ProductsPage() {
             </table>
           </div>
           <p className="mt-4 text-sm text-gray-500">
-            Every test includes a one-to-one online consultation to go through your report.
+            Every test includes a one-to-one online consultation to go through your report.{" "}
+            <Link href="/refund-policy/" className="font-semibold text-gold-dark underline underline-offset-4">
+              Refund Policy
+            </Link>
           </p>
         </div>
       </section>
