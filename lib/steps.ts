@@ -1,49 +1,48 @@
-// "How it works" steps — used on the homepage, How It Works page and product pages.
-// Photos: put files in public/images/photos/ and type the path in `photo`.
-// TODO: confirm every step (especially kit delivery and courier) with Genomics.
+// "How it works" steps — used on the How It Works page (full text + picture)
+// and as short cards on the homepage and product pages.
+// Wording from the Genomics content files (content_07102026.docx, content_08102026.docx), finalised.
+// `short` lines for steps 2–4 approved by Noor (step 1 is from the content file).
 
-import { site } from "@/lib/site";
+export type Step = {
+  title: string;
+  image: string; // How It Works page picture
+  text: string; // full step text (How It Works page)
+  note?: string; // extra line under the text
+  short: string; // one-line summary (homepage / product pages)
+  icon: "order" | "swab" | "return" | "report";
+};
 
-export const steps = [
+export const stepsIntro =
+  "Getting started with your DNA test is simple. Follow these four steps from ordering your kit to receiving your personalised DNA report.";
+
+export const steps: Step[] = [
   {
-    title: "Order via WhatsApp",
-    photo: null as string | null, // TODO: e.g. someone messaging on phone
-    text: "Tell us which test you want. We'll confirm the price, payment and delivery of your kit.",
-    detail: [
-      `Tap any “Order via WhatsApp” button on this site, or message us at ${site.whatsappDisplay}.`,
-      "Our team confirms your test, price and payment method.",
-      "We arrange delivery of your sample collection kit to your address.",
-    ],
+    title: "Place Your Order",
+    image: "/images/how-it-works/step-1.jpg",
+    text: "Contact us via WhatsApp to place your order. After completing your payment, send us your transaction receipt for confirmation. We will prepare and arrange your DNA collection kit for delivery.",
+    short: "Order in minutes, kit delivered to your doorstep.",
+    icon: "order",
   },
   {
-    title: "Collect your sample",
-    photo: null as string | null, // TODO: kit being used
-    text: "Use the kit at home. A simple, painless cheek swab, with instructions included.",
-    detail: [
-      "No fasting needed. Just avoid food, drinks, smoking and chewing gum for 30 minutes before.",
-      "Gently rub the swab on the inside of your cheeks. It takes less than two minutes.",
-      "Seal the sample tube and fill in the form included in the kit.",
-    ],
+    title: "Collect Your Sample",
+    image: "/images/how-it-works/step-2.jpg",
+    text: "For optimal sample collection, wait 1 hour after eating or brushing your teeth. Rinse your mouth with water, then carefully open the collection kit. Gently rub the swab along the inside of your cheeks on both sides to collect your sample.",
+    short: "A quick, painless cheek swab at home.",
+    icon: "swab",
   },
   {
-    title: "Send it to our lab",
-    photo: null as string | null, // TODO: packed kit / courier
-    text: "Return the kit using the courier arrangement we give you.",
-    detail: [
-      "Pack the sample as shown in the kit instructions.",
-      "Send it back using the courier arrangement we provide.",
-      "We'll let you know once our lab receives your sample.",
-    ],
+    title: "Return Your Sample",
+    image: "/images/how-it-works/step-3.jpg",
+    text: "Please complete your sample collection and return it to us within 2 weeks of receiving your DNA test kit. Place the swab into the provided collection tube, securely close the tube, place it inside the biohazard bag, and seal the return package. Send your sample to the assigned shipping provider and notify us once it has been shipped.",
+    short: "Send it back within 2 weeks.",
+    icon: "return",
   },
   {
-    title: "Get your report",
-    photo: null as string | null, // TODO: person reading report
-    text: "Your personal report is ready within 21 days.",
-    detail: [
-      "Our lab analyses your DNA and prepares your personal report.",
-      "Results are ready within 21 days after our lab receives your sample.",
-      "We'll let you know on WhatsApp and send your report to your registered email.",
-      "A one-to-one online consultation is included to go through your report with you.",
-    ],
+    title: "Receive Your Report",
+    image: "/images/how-it-works/step-4.jpg",
+    text: "Once your sample has been received and analysed, your personalised DNA report will be prepared within 21 days. Your report will be sent to you via email in digital format.",
+    note: "For Premium orders, an additional 7 days is required for the printed hardcopy report to be prepared and delivered to you.",
+    short: "Your digital report, emailed within 21 days.",
+    icon: "report",
   },
 ];

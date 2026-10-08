@@ -31,9 +31,9 @@ export const navLinks = [
 ];
 
 export const legalLinks = [
-  { href: "/privacy-policy/", label: "Privacy Policy" },
   { href: "/terms/", label: "Terms & Conditions" },
   { href: "/refund-policy/", label: "Refund Policy" },
+  { href: "/disclaimer/", label: "Disclaimer" },
 ];
 
 // Builds a WhatsApp chat link, optionally with a pre-filled message.

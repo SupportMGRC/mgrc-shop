@@ -1,0 +1,43 @@
+MGRC Shop update — 8 Oct 2026 (content_07102026.docx + content_08102026.docx)
+
+HOW TO APPLY
+1. Copy everything inside this "mgrc-shop" folder into
+   C:\Users\Noor\Desktop\Development\mgrc-shop  (say Yes to replace files).
+2. DELETE these 2 files (no longer used):
+     app\privacy-policy\page.tsx      (delete the whole app\privacy-policy folder)
+     components\home\StepsStrip.tsx
+3. git checkout Noor -> npm run dev -> check localhost:3000
+4. git add . ; git commit -m "Content update 8 Oct" ; git push
+5. npm run build -> upload "out" to testshop as usual.
+
+report-sources\origene-en.pdf / origene-zh.pdf = the new ORIGENE sample reports
+(kept on your PC only; already converted, no need to run the script again).
+
+WHAT CHANGED
+ 1. Terms & Conditions: Personal Data Notice (a–g) word for word; Refund Policy kept; draft banner,
+    placeholder headings and "Last updated" removed.
+ 2. Disclaimer: new page + footer link. Privacy Policy page and footer link removed.
+ 3. Top bar: "Part of Malaysian Genomics Resource Centre Berhad" removed (Visit mgrc.com.my kept).
+ 4. How It Works page: 4 step pictures, final wording, Premium +7 days note,
+    "the assigned shipping provider" (no Pos Laju in page text).
+ 5. 4-step cards (number, black icon, short line) on the homepage and every product page.
+ 6. Sample collection video: English / Bahasa Melayu / 中文 tabs (720p, ~25 MB each,
+    only the chosen language loads). Full screen now always shows the whole video
+    (also fixes the zoomed-in LittleGENEius testimonial videos).
+ 7. FAQ: 30 minutes -> 1 hour.
+ 8. Collaborations (homepage): 31 logos + "Collaborate with us" WhatsApp button.
+    To add the missing seal later: put the file in public\images\collaborations\ and add a line in lib\collaborations.ts.
+ 9. ORIGENE in capitals everywhere (web addresses like /products/origene/ unchanged).
+10. Why Us: new High Analytical Reliability wording; 3 icons now black and white.
+11. New report covers (no "SAMPLE REPORT") everywhere covers appear.
+12. Our Products: cards show Essential + Premium prices; Dtect PGx shown as add-on/bundle only
+    (bundle picture, notice, both bundle prices, "Order with ORIGENE® / LittleGENEius");
+    "More ways to order": Combo Package + Personalised Supplements (WhatsApp only);
+    pricing table now has LittleGENEius + PGx (RM2600 / RM2850).
+    Homepage "Which test" card for PGx now says "Bundle from RM2600 — Add-on with ORIGENE® or LittleGENEius".
+13. Dtect PGx page: Add-on badge, notice, bundle price table, two order buttons.
+    ORIGENE / LittleGENEius pages: "Add Dtect® PGx for +RM800" line under the price box.
+14. Testimonials: 3 quotes on each product page, 1 per product on Our Products,
+    note "Individual experiences may vary. Genetic screening is not a medical diagnosis."
+15. ORIGENE sample report: now 21 pages (EN + 中文) — page 21 "Your Wellness Guide" added;
+    pages 1–20 are unchanged.

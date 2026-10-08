@@ -48,7 +48,5 @@ JPG, under 400 KB each. Real photos of people and the kit work best.
 - How it works steps (kit delivery, courier, collection instructions)  →  lib/steps.ts
 - All FAQ answers  →  lib/faqs.ts
 - "Why Us" wording (content file 6 Oct 2026)  →  components/home/WhyUs.tsx
-- Open questions for Genomics: ORIGENE vs "OriGene" spelling; "21 days" calendar or working
-  days; consultation included for Dtect PGx?; FAQ wording edits (saliva → cheek swab, gift
+- Open questions for Genomics: "21 days" calendar or working days; consultation included for Dtect PGx?; FAQ wording edits (saliva → cheek swab, gift
   answer refers to WhatsApp ordering); add back "Is this a medical diagnosis?" as an FAQ?
-- Privacy Policy and Terms & Conditions (from Legal)

@@ -56,7 +56,9 @@ export default function TestChooser() {
                     <dt className="text-white/55">Price</dt>
                     <dd className="text-right font-semibold">
                       {fromPrice(p)}
-                      {p.packageNote && <span className="block text-xs font-normal text-white/55">with OriGene</span>}
+                      {p.bundles && (
+                        <span className="block text-xs font-normal text-white/55">Add-on with ORIGENE® or LittleGENEius</span>
+                      )}
                     </dd>
                   </div>
                 </dl>

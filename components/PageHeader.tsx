@@ -8,10 +8,12 @@ export default function PageHeader({
   title,
   intro,
   crumbs = [],
+  badge,
 }: {
   title: string;
   intro?: string;
   crumbs?: Crumb[];
+  badge?: string; // small gold label under the intro, e.g. "Add-on · Bundle only"
 }) {
   return (
     <section className="border-b-4 border-gold bg-night text-white">
@@ -35,6 +37,11 @@ export default function PageHeader({
         </nav>
         <h1 className="mt-6 font-display text-5xl leading-[1.05] font-semibold md:text-7xl">{title}</h1>
         {intro && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">{intro}</p>}
+        {badge && (
+          <p className="mt-5 inline-flex rounded-full bg-gold px-3 py-1 text-xs font-bold tracking-wide text-ink uppercase">
+            {badge}
+          </p>
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-// "Why Us?" — wording and icons from the Genomics content file (content_06102026.docx).
+// "Why Us?" — wording and icons from the Genomics content files (content_06102026.docx;
+// reliability wording and black-and-white icons updated from content_07102026.docx).
 // Kept by Noor: "cheek (buccal) swab", the "Why MGRC" label and the "20+ years" line.
 // Icons are the original images from that file, cropped only (public/images/icons/why-us/).
 const lead = {
@@ -38,7 +39,7 @@ const reasons = [
   {
     icon: "/images/icons/why-us/reliability.png",
     title: "High Analytical Reliability",
-    text: "Our advanced testing and analytical methodologies are designed to deliver highly accurate and dependable genetic results, ensuring confidence in every report.",
+    text: "We combine advanced genetic testing technology with stringent quality assurance standards to provide accurate, reliable, and trustworthy results. Our ISO 9001:2015 certified quality management system reflects our commitment to excellence at every stage of the testing process.",
   },
 ];
 

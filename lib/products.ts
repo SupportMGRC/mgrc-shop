@@ -1,5 +1,6 @@
 // Central product list — used on the homepage, Our Products page and each product page.
-// Names, descriptions, ages and prices: exactly as in the Genomics content file (content_06102026.docx).
+// Names, descriptions, ages and prices: exactly as in the Genomics content files
+// (content_06102026.docx, content_07102026.docx).
 
 export type Package = {
   tier: "Essential" | "Premium";
@@ -8,6 +9,14 @@ export type Package = {
 };
 
 export type Brochure = { label: string; href: string };
+
+// Dtect PGx is an add-on only: sold as a bundle with ORIGENE or LittleGENEius,
+// and the customer receives 2 separate reports.
+export type Bundle = {
+  withId: "origene" | "littlegeneius"; // product it is bundled with
+  label: string; // e.g. "ORIGENE® + PGx"
+  packages: Package[];
+};
 
 export type Product = {
   id: string; // also the web address: /products/<id>/
@@ -22,9 +31,8 @@ export type Product = {
   sampleType: string;
   turnaround: string;
   languages: string;
-  packages: Package[];
-  // Shown above the packages when they are for a bundle, not this product alone
-  packageNote: string | null;
+  packages: Package[]; // empty for add-on-only products (see bundles)
+  bundles: Bundle[] | null; // add-on-only products: the bundles it can be bought in
   website: string | null; // the product's own website, opens in a new tab
   brochures: Brochure[]; // PDFs in public/brochures/, one per language (button shows "Coming soon" if empty)
   image: string; // report cover (used when no photo yet)
@@ -38,10 +46,10 @@ const PREMIUM = "Digital Report + Printed Report";
 export const products: Product[] = [
   {
     id: "origene",
-    name: "OriGene®",
+    name: "ORIGENE®",
     tagline: "A complete look at your genetic health",
     description:
-      "OriGene is a comprehensive DNA screening test that analyzes selected genetic markers to provide personalized insights into health, wellness, physical traits, fitness, behavior, and disease predispositions across 249 traits in 9 profiles.",
+      "ORIGENE is a comprehensive DNA screening test that analyzes selected genetic markers to provide personalized insights into health, wellness, physical traits, fitness, behavior, and disease predispositions across 249 traits in 9 profiles.",
     forWho: "Best for ages 13 and above",
     audience: "For you",
     coverage: "249 traits in 9 profiles",
@@ -60,7 +68,7 @@ export const products: Product[] = [
       { tier: "Essential", includes: ESSENTIAL, price: "RM2200" },
       { tier: "Premium", includes: PREMIUM, price: "RM2450" },
     ],
-    packageNote: null,
+    bundles: null,
     website: "https://origene.com.my/",
     brochures: [
       { label: "English", href: "/brochures/origene-en.pdf" },
@@ -97,7 +105,7 @@ export const products: Product[] = [
       { tier: "Essential", includes: ESSENTIAL, price: "RM1800" },
       { tier: "Premium", includes: PREMIUM, price: "RM2050" },
     ],
-    packageNote: null,
+    bundles: null,
     website: "https://littlegeneius.mgrc.com.my/",
     brochures: [
       { label: "English", href: "/brochures/littlegeneius-en.pdf" },
@@ -126,12 +134,26 @@ export const products: Product[] = [
     sampleType: "Cheek swab",
     turnaround: "Within 21 days",
     languages: "English",
-    // Content file lists PGx only as the OriGene + PGx bundle.
-    packages: [
-      { tier: "Essential", includes: ESSENTIAL, price: "RM3000" },
-      { tier: "Premium", includes: PREMIUM, price: "RM3250" },
+    // Not sold alone — only as a bundle (content_07102026.docx; LittleGENEius + PGx prices added 8 Oct 2026).
+    packages: [],
+    bundles: [
+      {
+        withId: "origene",
+        label: "ORIGENE® + PGx",
+        packages: [
+          { tier: "Essential", includes: ESSENTIAL, price: "RM3000" },
+          { tier: "Premium", includes: PREMIUM, price: "RM3250" },
+        ],
+      },
+      {
+        withId: "littlegeneius",
+        label: "LittleGENEius + PGx",
+        packages: [
+          { tier: "Essential", includes: ESSENTIAL, price: "RM2600" },
+          { tier: "Premium", includes: PREMIUM, price: "RM2850" },
+        ],
+      },
     ],
-    packageNote: "Bundle price: OriGene + PGx",
     website: null,
     brochures: [{ label: "English", href: "/brochures/dtect-pgx-en.pdf" }],
     image: "/images/reports/dtect-pgx-cover.jpg",
@@ -144,7 +166,24 @@ export function getProduct(id: string) {
   return products.find((p) => p.id === id);
 }
 
-// "From RM1800" — lowest package price, for cards and tables
+const rm = (price: string) => Number(price.replace(/[^\d]/g, ""));
+
+// "From RM1800" — lowest package price. Add-on products: "Bundle from RM2600".
 export function fromPrice(p: Product) {
+  if (p.bundles) {
+    const lowest = Math.min(...p.bundles.map((b) => rm(b.packages[0].price)));
+    return `Bundle from RM${lowest}`;
+  }
   return `From ${p.packages[0].price}`;
+}
+
+// Extra cost of adding Dtect PGx to a test (same for Essential and Premium: +RM800)
+export function pgxAddOn(baseId: string) {
+  const base = getProduct(baseId);
+  const bundle = getProduct("dtect-pgx")?.bundles?.find((b) => b.withId === baseId);
+  if (!base || !bundle || base.packages.length === 0) return null;
+  return {
+    extra: `RM${rm(bundle.packages[0].price) - rm(base.packages[0].price)}`,
+    from: bundle.packages[0].price,
+  };
 }

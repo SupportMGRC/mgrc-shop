@@ -13,6 +13,5 @@ export const media = {
   // When set, it becomes a full-width photo behind the headline.
   hero: null as string | null, // e.g. "/images/photos/hero.jpg"
 
-  // How It Works page — YouTube embed link, e.g. "https://www.youtube.com/embed/VIDEO_ID"
-  videoEmbed: null as string | null,
+  // How It Works video: see components/SampleCollectionVideo.tsx (self-hosted, 3 languages)
 };

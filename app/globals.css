@@ -64,3 +64,10 @@ html.report-viewer-open { overflow: hidden; }
     line-height: 1.6;
   }
 }
+
+/* Full screen always shows the whole video (no cropping), whatever its shape */
+video:fullscreen,
+video:-webkit-full-screen {
+  object-fit: contain !important;
+  background: #000;
+}

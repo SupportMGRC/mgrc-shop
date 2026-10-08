@@ -18,7 +18,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Do I need to fast before providing my sample?",
-    a: "No fasting is required. However, for best results, we recommend avoiding food, beverages, smoking, or chewing gum for at least 30 minutes before collecting your sample.",
+    a: "No fasting is required. However, for best results, we recommend avoiding food, beverages, smoking, or chewing gum for at least 1 hour before collecting your sample.",
   },
   {
     q: "How long does it take to receive the DNA reports?",

@@ -25,13 +25,13 @@ export type SampleReport = {
 export const sampleReports: SampleReport[] = [
   {
     id: "origene",
-    name: "OriGene®",
+    name: "ORIGENE®",
     description:
       "Genetic screening for your predisposition to a wide range of health conditions and traits, with a risk summary and guidance on each result.",
     cover: "/images/reports/origene-cover.jpg",
     editions: [
-      { lang: "en", label: "English", pages: 20 },
-      { lang: "zh", label: "中文", pages: 20 },
+      { lang: "en", label: "English", pages: 21 },
+      { lang: "zh", label: "中文", pages: 21 },
     ],
   },
   {
