@@ -26,7 +26,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How is my genetic data secured and protected?",
-    a: "We prioritize your privacy above all else. Your genetic data is stored securely. We do not sell or share your DNA details with any third parties or insurance providers without your explicit consent. Your sample is anonymized inside our laboratory database using random barcoding.",
+    a: "We prioritise your privacy above all else. Your genetic data is stored securely. We do not sell or share your DNA details with any third parties or insurance providers without your explicit consent. Your sample is anonymised inside our laboratory database using random barcoding.",
   },
   {
     q: "Where do I view my DNA test results?",

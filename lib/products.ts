@@ -49,7 +49,7 @@ export const products: Product[] = [
     name: "ORIGENE®",
     tagline: "A complete look at your genetic health",
     description:
-      "ORIGENE is a comprehensive DNA screening test that analyzes selected genetic markers to provide personalized insights into health, wellness, physical traits, fitness, behavior, and disease predispositions across 249 traits in 9 profiles.",
+      "ORIGENE is a comprehensive DNA screening test that analyses selected genetic markers to provide personalised insights into health, wellness, physical traits, fitness, behavior, and disease predispositions across 249 traits in 9 profiles.",
     forWho: "Best for ages 13 and above",
     audience: "For you",
     coverage: "249 traits in 9 profiles",
@@ -120,7 +120,7 @@ export const products: Product[] = [
     name: "Dtect® PGx",
     tagline: "How your genes affect your medicines",
     description:
-      "Dtect PGx is a pharmacogenomic DNA screening test that analyzes genetic markers associated with drug response and adverse drug reactions, providing information that can help doctors select appropriate medications and dosages based on an individual's genetic profile.",
+      "Dtect PGx is a pharmacogenomic DNA screening test that analyses genetic markers associated with drug response and adverse drug reactions, providing information that can help doctors select appropriate medications and dosages based on an individual's genetic profile.",
     forWho: "Suitable for all ages",
     audience: "For your medicines",
     coverage: null,

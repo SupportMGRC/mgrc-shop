@@ -26,7 +26,7 @@ export default function FaqPage() {
           <aside className="md:sticky md:top-28 md:self-start">
             <div className="rounded-2xl bg-night p-6 text-white">
               <p className="font-display text-2xl font-semibold">Still have questions?</p>
-              <p className="mt-2 text-sm text-white/70">Our team replies on WhatsApp during office hours.</p>
+              <p className="mt-2 text-sm text-white/70">Our team is available on WhatsApp during office hours.</p>
               <a
                 href={whatsappLink("Hi MGRC, I have a question.")}
                 target="_blank"

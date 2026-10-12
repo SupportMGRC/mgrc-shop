@@ -50,7 +50,7 @@ export default function HowItWorksPage() {
       {/* Video tutorial in English, Bahasa Melayu and 中文 */}
       <section className="relative overflow-hidden bg-night py-24 text-white">
         <div className="relative mx-auto max-w-4xl px-4">
-          <h2 className="font-display text-5xl font-semibold">Watch: how to collect your sample</h2>
+          <h2 className="font-display text-5xl font-semibold">Watch: How to Collect and Return Your Sample</h2>
           <div className="mt-8">
             <SampleCollectionVideo />
           </div>

@@ -67,7 +67,7 @@ export default function SampleCollectionVideo() {
           controls
           playsInline
           preload="none"
-          aria-label="How to collect your sample"
+          aria-label="How to collect and return your sample"
         />
       </div>
       <p className="mt-3 text-sm text-white/55">Choose your language. Subtitles are shown in the video.</p>

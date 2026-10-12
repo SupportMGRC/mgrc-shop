@@ -26,7 +26,7 @@ export const steps: Step[] = [
   {
     title: "Collect Your Sample",
     image: "/images/how-it-works/step-2.jpg",
-    text: "For optimal sample collection, wait 1 hour after eating or brushing your teeth. Rinse your mouth with water, then carefully open the collection kit. Gently rub the swab along the inside of your cheeks on both sides to collect your sample.",
+    text: "For optimal sample collection, avoid eating, drinking (except water) or brushing your teeth for at least 1 hour before collection, in accordance with your test's collection protocol. Carefully open the collection kit and remove the swab. Gently rub the swab firmly against the inside of each cheek using a gentle back-and-forth motion.",
     short: "A quick, painless cheek swab at home.",
     icon: "swab",
   },

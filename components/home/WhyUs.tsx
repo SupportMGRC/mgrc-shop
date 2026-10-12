@@ -23,8 +23,8 @@ const reasons = [
   },
   {
     icon: "/images/icons/why-us/consultation.png",
-    title: "Personalized Genetic Consultation Included",
-    text: "Genetic screening services include access to genetic consultation, allowing you to discuss your results and gain a better understanding of your genetic insights.",
+    title: "Personalised Genetic Consultation Included",
+    text: "Genetic screening services include access to online genetic consultation, allowing you to discuss your results and gain a better understanding of your genetic insights",
   },
   {
     icon: "/images/icons/why-us/sample-collection.png",

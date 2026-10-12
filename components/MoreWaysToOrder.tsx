@@ -46,8 +46,8 @@ export default function MoreWaysToOrder() {
                     alt=""
                     width={480}
                     height={679}
-                    className={`w-[4.5rem] rounded-[2px] shadow-xl ${
-                      i === 1 ? "relative z-10 -mx-3 -translate-y-2" : i === 0 ? "-rotate-6" : "rotate-6"
+                    className={`w-20 sm:w-[5.0rem] rounded-[2px] shadow-xl ${
+                      i === 1 ? "relative z-10 -mx-5 -translate-y-2" : i === 0 ? "-rotate-6" : "rotate-6"
                     }`}
                   />
                 ))}

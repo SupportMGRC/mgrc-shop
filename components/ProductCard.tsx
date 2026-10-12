@@ -12,15 +12,15 @@ const orderBtn =
 function BundleImage({ product }: { product: Product }) {
   const bases = (product.bundles ?? []).map((b) => getProduct(b.withId)!);
   return (
-    <div className="relative flex h-full items-center justify-center gap-3 px-3 pt-8 pb-10">
+    <div className="relative flex h-full items-center justify-center gap-2 px-2 pt-8 pb-10">
       <span className="absolute top-4 left-4 rounded-full bg-gold px-3 py-1 text-xs font-bold tracking-wide text-ink uppercase">
         Add-on · Bundle only
       </span>
-      <div className="flex items-center gap-2 rounded-xl border border-dashed border-white/35 p-2.5">
+      <div className="flex items-center gap-1.5 rounded-xl border border-dashed border-white/35 p-2">
         {bases.map((b, i) => (
           <div key={b.id} className="flex items-center gap-2">
             {i > 0 && <span className="text-sm text-white/80 italic">or</span>}
-            <Image src={b.image} alt={`${b.name} report`} width={480} height={679} className="w-14 rounded-[2px] shadow-xl sm:w-16" />
+            <Image src={b.image} alt={`${b.name} report`} width={480} height={679} className="w-16 rounded-[2px] shadow-xl sm:w-[4.5rem]" />
           </div>
         ))}
       </div>
@@ -32,7 +32,7 @@ function BundleImage({ product }: { product: Product }) {
         alt={`${product.name} report`}
         width={480}
         height={679}
-        className="w-16 rounded-[2px] shadow-xl transition-transform duration-500 group-hover:-translate-y-1 sm:w-[4.5rem]"
+        className="w-20 rounded-[2px] shadow-xl transition-transform duration-500 group-hover:-translate-y-1 sm:w-24"
       />
       <span className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold whitespace-nowrap text-white">
         You receive 2 separate reports

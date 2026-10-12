@@ -31,7 +31,7 @@ export default function Hero() {
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/70">
             Genetic screening for you, your child and your medicines. Collect your sample at
-            home, and our lab turns it into a clear, personal report.
+            home, and our lab turns it into a clear, personalised report.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
