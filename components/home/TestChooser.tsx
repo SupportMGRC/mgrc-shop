@@ -21,12 +21,12 @@ export default function TestChooser() {
           </Link>
         </div>
 
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul data-stagger className="mt-12 grid gap-5 md:grid-cols-3">
           {products.map((p) => (
             <li key={p.id}>
               <Link
                 href={`/products/${p.id}/`}
-                className="group flex h-full flex-col rounded-3xl bg-night-light p-7 ring-1 ring-white/10 transition hover:ring-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                className="group flex h-full flex-col rounded-3xl bg-night-light p-7 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1.5 hover:ring-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
               >
                 <div className="flex items-start justify-between gap-4">
                   <p className="text-sm font-semibold tracking-wide text-gold uppercase">{p.audience}</p>
@@ -56,9 +56,6 @@ export default function TestChooser() {
                     <dt className="text-white/55">Price</dt>
                     <dd className="text-right font-semibold">
                       {fromPrice(p)}
-                      {p.bundles && (
-                        <span className="block text-xs font-normal text-white/55">Add-on with ORIGENE® or LittleGENEius</span>
-                      )}
                     </dd>
                   </div>
                 </dl>

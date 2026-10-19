@@ -10,8 +10,8 @@ export type Package = {
 
 export type Brochure = { label: string; href: string };
 
-// Dtect PGx is an add-on only: sold as a bundle with ORIGENE or LittleGENEius,
-// and the customer receives 2 separate reports.
+// Dtect PGx is sold on its own (since content_13102026.docx) and also as a bundle with
+// ORIGENE or LittleGENEius at a special price. A bundle = 2 separate reports.
 export type Bundle = {
   withId: "origene" | "littlegeneius"; // product it is bundled with
   label: string; // e.g. "ORIGENE® + PGx"
@@ -31,8 +31,8 @@ export type Product = {
   sampleType: string;
   turnaround: string;
   languages: string;
-  packages: Package[]; // empty for add-on-only products (see bundles)
-  bundles: Bundle[] | null; // add-on-only products: the bundles it can be bought in
+  packages: Package[];
+  bundles: Bundle[] | null; // bundles this product can also be bought in (Dtect PGx only)
   website: string | null; // the product's own website, opens in a new tab
   brochures: Brochure[]; // PDFs in public/brochures/, one per language (button shows "Coming soon" if empty)
   image: string; // report cover (used when no photo yet)
@@ -103,7 +103,7 @@ export const products: Product[] = [
     languages: "English, 中文",
     packages: [
       { tier: "Essential", includes: ESSENTIAL, price: "RM1800" },
-      { tier: "Premium", includes: PREMIUM, price: "RM2050" },
+      { tier: "Premium", includes: PREMIUM, price: "RM1900" },
     ],
     bundles: null,
     website: "https://littlegeneius.mgrc.com.my/",
@@ -134,8 +134,11 @@ export const products: Product[] = [
     sampleType: "Cheek swab",
     turnaround: "Within 21 days",
     languages: "English",
-    // Not sold alone — only as a bundle (content_07102026.docx; LittleGENEius + PGx prices added 8 Oct 2026).
-    packages: [],
+    // Sold on its own from content_13102026.docx. Bundle prices unchanged (content_07102026.docx, 8 Oct 2026).
+    packages: [
+      { tier: "Essential", includes: ESSENTIAL, price: "RM2500" },
+      { tier: "Premium", includes: PREMIUM, price: "RM2600" },
+    ],
     bundles: [
       {
         withId: "origene",
@@ -168,22 +171,20 @@ export function getProduct(id: string) {
 
 const rm = (price: string) => Number(price.replace(/[^\d]/g, ""));
 
-// "From RM1800" — lowest package price. Add-on products: "Bundle from RM2600".
+// "From RM1800" — lowest package price
 export function fromPrice(p: Product) {
-  if (p.bundles) {
-    const lowest = Math.min(...p.bundles.map((b) => rm(b.packages[0].price)));
-    return `Bundle from RM${lowest}`;
-  }
-  return `From ${p.packages[0].price}`;
+  return `From RM${Math.min(...p.packages.map((pkg) => rm(pkg.price)))}`;
 }
 
-// Extra cost of adding Dtect PGx to a test (same for Essential and Premium: +RM800)
+// Extra cost of adding Dtect PGx to a test, as "from +RMxxx" (the smallest difference across
+// Essential and Premium — e.g. LittleGENEius: +RM800 Essential, +RM950 Premium).
 export function pgxAddOn(baseId: string) {
   const base = getProduct(baseId);
   const bundle = getProduct("dtect-pgx")?.bundles?.find((b) => b.withId === baseId);
   if (!base || !bundle || base.packages.length === 0) return null;
+  const extras = bundle.packages.map((pkg, i) => rm(pkg.price) - rm(base.packages[i].price));
   return {
-    extra: `RM${rm(bundle.packages[0].price) - rm(base.packages[0].price)}`,
-    from: bundle.packages[0].price,
+    extra: `RM${Math.min(...extras)}`,
+    from: `RM${Math.min(...bundle.packages.map((pkg) => rm(pkg.price)))}`,
   };
 }

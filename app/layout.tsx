@@ -5,6 +5,7 @@ import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Motion from "@/components/Motion";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -23,11 +24,19 @@ export const metadata: Metadata = {
     "Genetic screening tests by Malaysian Genomics Resource Centre. Order via WhatsApp.",
 };
 
+// Turns on the site animations before the page is shown — unless the visitor has
+// "reduce motion" turned on. If the animation script hasn't started after 4 seconds
+// (e.g. JavaScript failed), animations are switched off so nothing stays hidden.
+const motionScript = `(function(){try{var d=document.documentElement;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;d.classList.add('motion');setTimeout(function(){if(!d.classList.contains('motion-ready'))d.classList.remove('motion')},4000)}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionScript }} />
+      </head>
       <body
         className={`${cormorant.variable} ${jakarta.variable} flex min-h-screen flex-col antialiased`}
       >
@@ -36,6 +45,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <Motion />
       </body>
     </html>
   );

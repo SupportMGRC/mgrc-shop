@@ -24,10 +24,17 @@ export default function HowItWorks({ showLink = true }: { showLink?: boolean }) 
           <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">{stepsIntro}</p>
         </div>
 
-        <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ol data-stagger className="relative mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Gold line joining the step numbers, drawn when the steps come into view (large screens) */}
+          <li
+            data-no-reveal
+            aria-hidden
+            className="step-line pointer-events-none absolute top-[3.375rem] z-10 hidden h-0.5 bg-gold/70 lg:block"
+            style={{ left: "calc((100% - 3.75rem) / 8)", right: "calc((100% - 3.75rem) / 8)" }}
+          />
           {steps.map((step, i) => (
             <li key={step.title} className="flex flex-col items-center rounded-3xl bg-mist p-8 text-center">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold text-sm font-bold text-ink tabular-nums">
+              <span className="step-num relative z-20 flex h-11 w-11 items-center justify-center rounded-full bg-gold text-sm font-bold text-ink tabular-nums">
                 0{i + 1}
               </span>
               <span className="mt-6 flex h-14 items-center text-ink">

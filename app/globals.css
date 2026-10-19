@@ -71,3 +71,157 @@ video:-webkit-full-screen {
   object-fit: contain !important;
   background: #000;
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Motion — site animations (components/Motion.tsx, components/GoldGlow.tsx,
+   components/home/HelixStat.tsx). Everything that hides content is scoped to
+   html.motion, which is only set when JavaScript runs and the visitor has not
+   turned on "reduce motion". Animations play once; nothing loops on content.
+   ────────────────────────────────────────────────────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes enter-cover {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pop {
+  0%   { opacity: 0; transform: scale(0.4); }
+  70%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-9deg); }
+  50% { transform: rotate(7deg); }
+  75% { transform: rotate(-3deg); }
+}
+@keyframes tick-draw { to { stroke-dashoffset: 0; } }
+@keyframes page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Page transition: each new page fades in */
+.motion .page-in { animation: page-in 0.35s ease-out both; }
+
+/* Hero and page-title entrance on load */
+.motion .enter       { animation: enter-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0ms); }
+.motion .enter-cover { animation: enter-cover 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0ms); }
+
+/* Sections and cards fade up as they scroll into view (once) */
+.motion [data-anim]:not(.is-in) { opacity: 0; }
+.motion [data-anim].is-in {
+  animation: fade-up 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Why Us icons pop in, and wiggle when the card is hovered */
+.motion [data-anim]:not(.is-in) .why-icon { opacity: 0; }
+.motion [data-anim].is-in .why-icon {
+  animation: pop 0.55s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  animation-delay: calc(var(--d, 0ms) + 180ms);
+}
+article:hover .why-icon img { animation: wiggle 0.6s ease; }
+
+/* Step numbers pop in */
+.motion [data-anim]:not(.is-in) .step-num { opacity: 0; }
+.motion [data-anim].is-in .step-num {
+  animation: pop 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  animation-delay: calc(var(--d, 0ms) + 200ms);
+}
+
+/* Gold line joining the home "How It Works" steps draws from left to right */
+.motion .step-line { transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.motion .is-in > .step-line { transform: scaleX(1); }
+
+/* Tick lists: ticks draw themselves one by one */
+.motion [data-ticks] svg polyline { stroke-dasharray: 24; stroke-dashoffset: 24; }
+.motion [data-ticks].is-in svg polyline { animation: tick-draw 0.45s ease forwards; animation-delay: 250ms; }
+.motion [data-ticks].is-in li:nth-child(2) svg polyline { animation-delay: 380ms; }
+.motion [data-ticks].is-in li:nth-child(3) svg polyline { animation-delay: 510ms; }
+.motion [data-ticks].is-in li:nth-child(4) svg polyline { animation-delay: 640ms; }
+.motion [data-ticks].is-in li:nth-child(5) svg polyline { animation-delay: 770ms; }
+.motion [data-ticks].is-in li:nth-child(n + 6) svg polyline { animation-delay: 900ms; }
+
+/* Blur-up: images sharpen as they finish loading */
+.motion img[data-blur-done] { transition: filter 0.6s ease, transform 0.5s ease, translate 0.5s ease, rotate 0.5s ease, scale 0.5s ease; }
+.motion img.img-loading { filter: blur(14px); }
+
+/* Report viewer pages fade in */
+.motion .report-page-in { animation: page-in 0.5s ease-out both; }
+
+/* Gold buttons glow softly on hover */
+a.bg-gold.rounded-full,
+button.bg-gold.rounded-full {
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.25s, translate 0.25s;
+}
+a.bg-gold.rounded-full:hover,
+button.bg-gold.rounded-full:hover {
+  box-shadow: 0 0 0 6px rgb(242 169 59 / 0.22), 0 8px 22px rgb(242 169 59 / 0.28);
+  translate: 0 -1px;
+}
+
+/* Floating WhatsApp button: a soft ring pulses continuously */
+.wa-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid #25d366;
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes wa-ring {
+  0%   { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(1.75); opacity: 0; }
+}
+.motion .wa-pulse { animation: wa-ring 2.2s ease-out 1s infinite; }
+
+/* Slow gold glow behind dark sections (only moves while on screen) */
+.gold-glow span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(10px);
+}
+.gold-glow-a {
+  width: 42rem; height: 42rem;
+  left: -12rem; top: -18rem;
+  background: radial-gradient(circle, rgb(242 169 59 / 0.3), rgb(242 169 59 / 0) 65%);
+}
+.gold-glow-b {
+  width: 36rem; height: 36rem;
+  right: -14rem; bottom: -20rem;
+  background: radial-gradient(circle, rgb(242 169 59 / 0.2), rgb(242 169 59 / 0) 65%);
+}
+@keyframes glow-a { from { transform: translate(0, 0); } to { transform: translate(30rem, 12rem); } }
+@keyframes glow-b { from { transform: translate(0, 0); } to { transform: translate(-26rem, -10rem); } }
+.motion .gold-glow-a { animation: glow-a 12s ease-in-out infinite alternate; }
+.motion .gold-glow-b { animation: glow-b 15s ease-in-out infinite alternate; }
+.motion .gold-glow:not(.is-playing) span { animation-play-state: paused; }
+
+/* Why Us DNA helix: scrolls up one twist, seamlessly, while on screen */
+@keyframes helix-scroll { from { transform: translateY(0); } to { transform: translateY(-160px); } }
+.motion .helix .helix-scroll { animation: helix-scroll 9s linear infinite; }
+.motion .helix:not(.is-playing) .helix-scroll { animation-play-state: paused; }
+
+/* FAQ: answers slide open and closed (browsers that support it; others open instantly) */
+@supports (interpolate-size: allow-keywords) {
+  .faq-item { interpolate-size: allow-keywords; }
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: block-size 0.35s ease, opacity 0.35s ease, content-visibility 0.35s allow-discrete;
+  }
+  .faq-item[open]::details-content { block-size: auto; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+}

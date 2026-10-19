@@ -6,6 +6,7 @@
 //   2. Run: python scripts/build-report-pages.py
 //      This writes the page images to public/images/reports/<id>/<lang>/
 //   3. Update the entry below (page count, languages).
+// Current files: content_13102026 sample reports (watermarked), 20 Oct 2026.
 // Descriptions are drafts — confirm wording with Genomics before launch.
 
 export type ReportEdition = {
@@ -30,8 +31,8 @@ export const sampleReports: SampleReport[] = [
       "Genetic screening for your predisposition to a wide range of health conditions and traits, with a risk summary and guidance on each result.",
     cover: "/images/reports/origene-cover.jpg",
     editions: [
-      { lang: "en", label: "English", pages: 21 },
-      { lang: "zh", label: "中文", pages: 21 },
+      { lang: "en", label: "English", pages: 20 },
+      { lang: "zh", label: "中文", pages: 20 },
     ],
   },
   {
@@ -41,8 +42,8 @@ export const sampleReports: SampleReport[] = [
       "Genetic screening for children covering personality, emotional intelligence, learning and sports potential, childhood conditions and nutrition, with a guide for parents.",
     cover: "/images/reports/littlegeneius-cover.jpg",
     editions: [
-      { lang: "en", label: "English", pages: 15 },
-      { lang: "zh", label: "中文", pages: 15 },
+      { lang: "en", label: "English", pages: 17 },
+      { lang: "zh", label: "中文", pages: 17 },
     ],
   },
   {
@@ -51,7 +52,7 @@ export const sampleReports: SampleReport[] = [
     description:
       "Pharmacogenomic report showing how your genes may affect your response to commonly prescribed medicines, to discuss with your doctor or pharmacist.",
     cover: "/images/reports/dtect-pgx-cover.jpg",
-    editions: [{ lang: "en", label: "English", pages: 20 }],
+    editions: [{ lang: "en", label: "English", pages: 9 }],
   },
 ];
 

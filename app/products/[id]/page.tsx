@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FiCheck, FiClock, FiDroplet, FiGlobe, FiFileText, FiExternalLink, FiBookOpen, FiUsers, FiInfo, FiArrowRight } from "react-icons/fi";
+import { FiCheck, FiClock, FiDroplet, FiGlobe, FiFileText, FiExternalLink, FiBookOpen, FiUsers, FiArrowRight } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import PageHeader from "@/components/PageHeader";
 import ProductCard from "@/components/ProductCard";
@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: Props) {
   const hasVideos = videoTestimonials.some((v) => v.product === product.id);
   const shortName = product.name.replace("®", "");
   const pgx = getProduct("dtect-pgx");
-  const addOn = product.bundles ? null : pgxAddOn(product.id);
+  const addOn = product.id === "dtect-pgx" ? null : pgxAddOn(product.id);
   const quotes = testimonials.filter((t) => t.productId === product.id);
 
   return (
@@ -53,7 +53,6 @@ export default async function ProductPage({ params }: Props) {
         title={product.name}
         intro={product.tagline}
         crumbs={[{ href: "/products/", label: "Our Products" }]}
-        badge={product.bundles ? "Add-on · Bundle only" : undefined}
       />
 
       {/* Cover + buy box */}
@@ -92,102 +91,33 @@ export default async function ProductPage({ params }: Props) {
             </dl>
 
             <div className="mt-8 rounded-2xl border-2 border-gold p-6">
-              {product.bundles ? (
-                <>
-                  {/* Add-on only: show both bundles */}
-                  <div className="flex gap-2.5 rounded-xl bg-gold-light p-4 text-sm leading-relaxed text-gray-800">
-                    <FiInfo className="mt-0.5 shrink-0 text-lg text-gold-dark" aria-hidden />
-                    <p>
-                      <strong className="font-semibold text-ink">Add-on only, not sold separately.</strong> Bundle{" "}
-                      {shortName} with ORIGENE® or LittleGENEius. You receive two separate reports: your ORIGENE® or
-                      LittleGENEius report, plus your {shortName} report.
-                    </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {product.packages.map((pkg) => (
+                  <div key={pkg.tier} className="rounded-xl bg-mist p-4">
+                    <p className="text-sm font-semibold text-gray-600">{pkg.tier} Package</p>
+                    <p className="mt-1 text-3xl font-bold text-ink">{pkg.price}</p>
+                    <p className="mt-1 text-sm text-gray-600">{pkg.includes}</p>
                   </div>
-                  <div className="mt-5 overflow-x-auto">
-                    <table className="w-full min-w-[340px] text-left">
-                      <thead>
-                        <tr className="text-xs tracking-wide text-gray-500 uppercase">
-                          <th scope="col" className="px-3 pb-2 font-semibold">Bundle</th>
-                          <th scope="col" className="px-3 pb-2 font-semibold">
-                            Essential
-                            <span className="block text-xs font-normal tracking-normal normal-case">Digital Report</span>
-                          </th>
-                          <th scope="col" className="rounded-t-lg bg-gold-light/60 px-3 pt-2 pb-2 font-semibold">
-                            Premium
-                            <span className="block text-xs font-normal tracking-normal normal-case">Digital + Printed Report</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {product.bundles.map((b) => (
-                          <tr key={b.label} className="border-t border-gray-200">
-                            <th scope="row" className="px-3 py-3 font-normal text-gray-800">{b.label}</th>
-                            {b.packages.map((pkg) => (
-                              <td
-                                key={pkg.tier}
-                                className={`px-3 py-3 text-xl font-bold text-ink tabular-nums ${pkg.tier === "Premium" ? "bg-gold-light/60" : ""}`}
-                              >
-                                {pkg.price}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                    {product.bundles.map((b) => (
-                      <a
-                        key={b.label}
-                        href={whatsappLink(`Hi MGRC, I'd like to order ${b.label}.`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-3.5 font-semibold text-ink transition-colors hover:bg-[#e39a2a]"
-                      >
-                        <FaWhatsapp aria-hidden />
-                        Order with {getProduct(b.withId)!.name}
-                      </a>
-                    ))}
-                    <Link
-                      href={`/sample-reports/#${product.sampleReportId}`}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 px-6 py-3.5 font-semibold text-ink transition-colors hover:border-ink sm:col-span-2"
-                    >
-                      <FiFileText aria-hidden />
-                      See PGx sample report
-                    </Link>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {product.packages.map((pkg) => (
-                      <div key={pkg.tier} className="rounded-xl bg-mist p-4">
-                        <p className="text-sm font-semibold text-gray-600">{pkg.tier} Package</p>
-                        <p className="mt-1 text-3xl font-bold text-ink">{pkg.price}</p>
-                        <p className="mt-1 text-sm text-gray-600">{pkg.includes}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                    <a
-                      href={whatsappLink(`Hi MGRC, I'd like to order ${product.name}.`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 font-semibold text-ink transition-colors hover:bg-[#e39a2a]"
-                    >
-                      <FaWhatsapp aria-hidden />
-                      Order via WhatsApp
-                    </a>
-                    <Link
-                      href={`/sample-reports/#${product.sampleReportId}`}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 px-6 py-3.5 font-semibold text-ink transition-colors hover:border-ink"
-                    >
-                      <FiFileText aria-hidden />
-                      See sample report
-                    </Link>
-                  </div>
-                </>
-              )}
+                ))}
+              </div>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <a
+                  href={whatsappLink(`Hi MGRC, I'd like to order ${product.name}.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 font-semibold text-ink transition-colors hover:bg-[#e39a2a]"
+                >
+                  <FaWhatsapp aria-hidden />
+                  Order via WhatsApp
+                </a>
+                <Link
+                  href={`/sample-reports/#${product.sampleReportId}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 px-6 py-3.5 font-semibold text-ink transition-colors hover:border-ink"
+                >
+                  <FiFileText aria-hidden />
+                  See sample report
+                </Link>
+              </div>
             </div>
 
             {/* Upsell: add Dtect PGx to ORIGENE / LittleGENEius */}
@@ -198,7 +128,7 @@ export default async function ProductPage({ params }: Props) {
               >
                 <Image src={pgx.image} alt="" width={480} height={679} className="w-10 shrink-0 rounded-[2px] shadow-md" />
                 <span className="flex-1 text-sm leading-relaxed text-gray-600">
-                  <strong className="block text-base font-semibold text-ink">Add {pgx.name} for +{addOn.extra}</strong>
+                  <strong className="block text-base font-semibold text-ink">Add {pgx.name} from +{addOn.extra}</strong>
                   Also find out how your genes affect your medicines. Bundle from {addOn.from}, as a separate report.
                 </span>
                 <span className="hidden items-center gap-1 text-sm font-semibold whitespace-nowrap text-gold-dark underline underline-offset-4 sm:inline-flex">
@@ -270,7 +200,7 @@ export default async function ProductPage({ params }: Props) {
           />
           <div>
             <h2 className="font-display text-5xl font-semibold">What&apos;s in your report</h2>
-            <ul className="mt-8 space-y-4">
+            <ul data-ticks className="mt-8 space-y-4">
               {product.includes.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-lg text-white/85">
                   <FiCheck className="mt-1.5 shrink-0 text-gold" aria-hidden />
@@ -295,7 +225,7 @@ export default async function ProductPage({ params }: Props) {
       <section className="py-24">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="font-display text-5xl font-semibold text-ink">You may also like</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div data-stagger className="mt-10 grid gap-6 md:grid-cols-3">
             {others.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

@@ -14,8 +14,8 @@ export default function Page() {
       <section className="py-16">
         <div className="mx-auto max-w-3xl px-4">
           <p className="text-lg leading-relaxed text-gray-700">
-            While refunds are not available, we are happy to offer the full amount paid as MGRC credit, which can be
-            redeemed for any MGRC product at the prevailing retail price.
+            We currently do not offer refunds. If you have any concerns, please get in touch with us. Our team will be
+            happy to connect with you and provide the support you need.
           </p>
         </div>
       </section>

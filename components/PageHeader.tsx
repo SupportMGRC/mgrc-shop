@@ -1,5 +1,7 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { FiChevronRight } from "react-icons/fi";
+import GoldGlow from "@/components/GoldGlow";
 
 type Crumb = { href: string; label: string };
 
@@ -13,12 +15,13 @@ export default function PageHeader({
   title: string;
   intro?: string;
   crumbs?: Crumb[];
-  badge?: string; // small gold label under the intro, e.g. "Add-on · Bundle only"
+  badge?: string; // small gold label under the intro, e.g. "New"
 }) {
   return (
-    <section className="border-b-4 border-gold bg-night text-white">
-      <div className="mx-auto max-w-6xl px-4 pt-12 pb-16 md:pt-16 md:pb-20">
-        <nav aria-label="Breadcrumb">
+    <section className="relative overflow-hidden border-b-4 border-gold bg-night text-white">
+      <GoldGlow />
+      <div className="relative mx-auto max-w-6xl px-4 pt-12 pb-16 md:pt-16 md:pb-20">
+        <nav aria-label="Breadcrumb" className="enter">
           <ol className="flex flex-wrap items-center gap-1 text-sm text-white/50">
             <li>
               <Link href="/" className="hover:text-gold">Home</Link>
@@ -35,8 +38,8 @@ export default function PageHeader({
             </li>
           </ol>
         </nav>
-        <h1 className="mt-6 font-display text-5xl leading-[1.05] font-semibold md:text-7xl">{title}</h1>
-        {intro && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">{intro}</p>}
+        <h1 style={{ "--d": "90ms" } as CSSProperties} className="enter mt-6 font-display text-5xl leading-[1.05] font-semibold md:text-7xl">{title}</h1>
+        {intro && <p style={{ "--d": "180ms" } as CSSProperties} className="enter mt-5 max-w-2xl text-lg leading-relaxed text-white/70">{intro}</p>}
         {badge && (
           <p className="mt-5 inline-flex rounded-full bg-gold px-3 py-1 text-xs font-bold tracking-wide text-ink uppercase">
             {badge}

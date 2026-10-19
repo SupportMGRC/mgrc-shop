@@ -14,11 +14,11 @@ export default function SampleReportsPage() {
     <>
       <PageHeader
         title="Sample Reports"
-        intro="See what your report will look like before you order. These are selected pages from real report layouts with example results, marked “Sample Report”."
+        intro="See what your report will look like before you order. These are sample report layouts with example results, marked “Sample Report”."
       />
 
       <section className="py-20">
-        <div className="mx-auto max-w-5xl space-y-8 px-4">
+        <div data-stagger className="mx-auto max-w-5xl space-y-8 px-4">
           {sampleReports.map((report) => (
             <ReportCard key={report.id} report={report} />
           ))}

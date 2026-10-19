@@ -3,9 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FiX, FiZoomIn, FiZoomOut } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
 import { reportPageSrc, type SampleReport } from "@/lib/reports";
-import { whatsappLink } from "@/lib/site";
 
 // View-only sample report viewer.
 // Pages are images (no PDF is published). Right-click, long-press, dragging and
@@ -28,6 +26,7 @@ export default function ReportViewer({
   const edition = report.editions[langIndex];
   const [page, setPage] = useState(1);
   const [zoomed, setZoomed] = useState(false);
+  const [progress, setProgress] = useState(0); // 0–1, how far through the report
   const scrollRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -55,6 +54,7 @@ export default function ReportViewer({
     const root = scrollRef.current;
     if (!root) return;
     root.scrollTop = 0;
+    setProgress(0);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -81,17 +81,23 @@ export default function ReportViewer({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={`${report.name} sample report preview`}
+      aria-label={`${report.name} sample report`}
       className="report-viewer fixed inset-0 z-[60] flex flex-col bg-night-deep text-white"
       onContextMenu={block}
       onDragStart={block}
     >
       {/* Top bar */}
-      <div className="flex shrink-0 items-center gap-3 border-b border-white/10 px-4 py-3">
+      <div className="relative flex shrink-0 items-center gap-3 border-b border-white/10 px-4 py-3">
+        {/* Reading progress: gold line that fills as you scroll through the report */}
+        <span
+          className="absolute -bottom-px left-0 h-[3px] bg-gold transition-[width] duration-150 ease-out"
+          style={{ width: `${progress * 100}%` }}
+          aria-hidden
+        />
         <div className="min-w-0 flex-1">
           <p className="truncate font-display text-xl font-semibold sm:text-2xl">{report.name}</p>
           <p className="text-xs text-white/60" aria-live="polite">
-            Preview · page {page} of {edition.pages}
+            Sample report · page {page} of {edition.pages}
           </p>
         </div>
 
@@ -126,20 +132,28 @@ export default function ReportViewer({
           type="button"
           onClick={onClose}
           className="rounded-full p-2.5 text-2xl text-white/75 hover:bg-white/10 hover:text-white"
-          aria-label="Close preview"
+          aria-label="Close sample report"
         >
           <FiX />
         </button>
       </div>
 
       {/* Pages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto overscroll-contain px-3 py-6 sm:px-6">
+      <div
+        ref={scrollRef}
+        onScroll={(e) => {
+          const el = e.currentTarget;
+          const max = el.scrollHeight - el.clientHeight;
+          setProgress(max > 0 ? el.scrollTop / max : 0);
+        }}
+        className="flex-1 overflow-y-auto overscroll-contain px-3 py-6 sm:px-6"
+      >
         <div className={`mx-auto space-y-4 transition-[max-width] ${zoomed ? "max-w-5xl" : "max-w-3xl"}`}>
           {pages.map((n) => (
             <div
               key={`${edition.lang}-${n}`}
               data-page={n}
-              className="report-page relative select-none overflow-hidden rounded-sm bg-white shadow-2xl"
+              className="report-page report-page-in relative select-none overflow-hidden rounded-sm bg-white shadow-2xl"
             >
               <Image
                 src={reportPageSrc(report.id, edition.lang, n)}
@@ -154,30 +168,12 @@ export default function ReportViewer({
               <div className="absolute inset-0" aria-hidden />
             </div>
           ))}
-
-          {/* End of preview */}
-          <div className="rounded-2xl bg-night-light p-8 text-center">
-            <p className="font-display text-3xl font-semibold">That&apos;s the end of the preview</p>
-            <p className="mx-auto mt-3 max-w-md text-white/70">
-              These are selected pages. Your full report is personalised to your own DNA.
-            </p>
-            <a
-              href={whatsappLink(`Hi MGRC, I'd like to know more about the full ${report.name} report.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-semibold text-ink transition-colors hover:bg-[#ffbb52]"
-            >
-              <FaWhatsapp aria-hidden />
-              Ask about the full report
-            </a>
-          </div>
         </div>
       </div>
 
       {/* Shown instead of the report if someone prints the page */}
       <div className="report-print-notice hidden">
         <p>Sample reports can be viewed on our website only.</p>
-        <p>For the full {report.name} report, contact MGRC on WhatsApp.</p>
       </div>
     </div>
   );

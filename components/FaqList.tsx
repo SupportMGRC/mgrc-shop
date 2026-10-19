@@ -4,6 +4,7 @@ import type { Faq } from "@/lib/faqs";
 
 // Accordion based on HyperUI "FAQs — Divided with chevrons" (MIT licence).
 // Uses the built-in <details> tag, so it opens/closes without JavaScript.
+// Smooth open/close comes from "faq-item" in globals.css (browsers that support it).
 export default function FaqList({ items, openFirst = false }: { items: Faq[]; openFirst?: boolean }) {
   return (
     <div className="flow-root">
@@ -11,11 +12,11 @@ export default function FaqList({ items, openFirst = false }: { items: Faq[]; op
         {items.map((faq, i) => (
           <details
             key={faq.q}
-            className="group py-4 [&_summary::-webkit-details-marker]:hidden"
+            className="faq-item group py-4 [&_summary::-webkit-details-marker]:hidden"
             open={openFirst && i === 0}
           >
             <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-ink">
-              <h3 className="text-lg font-medium">{faq.q}</h3>
+              <h3 className="text-lg font-medium transition-colors group-hover:text-gold-dark">{faq.q}</h3>
               <svg
                 aria-hidden="true"
                 className="size-5 shrink-0 transition-transform duration-300 group-open:-rotate-180"

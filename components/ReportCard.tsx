@@ -16,7 +16,7 @@ export default function ReportCard({ report }: { report: SampleReport }) {
   return (
     <article
       id={report.id}
-      className="grid scroll-mt-28 overflow-hidden rounded-3xl border border-gray-200 sm:grid-cols-[220px_1fr] md:grid-cols-[280px_1fr]"
+      className="grid scroll-mt-28 overflow-hidden rounded-3xl border border-gray-200 transition-[box-shadow,border-color] duration-300 hover:border-gold/60 hover:shadow-xl sm:grid-cols-[220px_1fr] md:grid-cols-[280px_1fr]"
     >
       <button
         type="button"
@@ -29,13 +29,13 @@ export default function ReportCard({ report }: { report: SampleReport }) {
           alt={`${report.name} sample report cover`}
           width={480}
           height={679}
-          className="w-36 rounded-sm shadow-2xl transition-transform group-hover:-rotate-2 md:w-44"
+          className="w-36 rounded-sm shadow-2xl transition-transform duration-500 group-hover:-translate-y-1 group-hover:-rotate-3 md:w-44"
         />
       </button>
 
       <div className="p-8">
         <h2 className="font-display text-4xl font-semibold text-ink">{report.name}</h2>
-        <p className="mt-1 text-sm text-gray-500">{pages}-page preview</p>
+        <p className="mt-1 text-sm text-gray-500">{pages}-page sample report</p>
         <p className="mt-4 max-w-xl leading-relaxed text-gray-700">{report.description}</p>
 
         <div className="mt-6 flex flex-wrap gap-3">
@@ -51,9 +51,6 @@ export default function ReportCard({ report }: { report: SampleReport }) {
             </button>
           ))}
         </div>
-        <p className="mt-4 text-xs text-gray-500">
-          Selected pages with example results. Your full report is personalised to your DNA.
-        </p>
       </div>
 
       {open !== null &&

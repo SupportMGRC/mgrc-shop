@@ -1,8 +1,11 @@
 import Image from "next/image";
+import GoldGlow from "@/components/GoldGlow";
+import HelixStat from "@/components/home/HelixStat";
 
 // "Why Us?" — wording and icons from the Genomics content files (content_06102026.docx;
 // reliability wording and black-and-white icons updated from content_07102026.docx).
-// Kept by Noor: "cheek (buccal) swab", the "Why MGRC" label and the "20+ years" line.
+// Kept by Noor: "cheek (buccal) swab", the "Why MGRC" label and the "20+ years" line
+// ("listed on Bursa Malaysia" removed here in content_13102026 — it is already in the hero).
 // Icons are the original images from that file, cropped only (public/images/icons/why-us/).
 const lead = {
   icon: "/images/icons/why-us/expertise.png",
@@ -46,7 +49,7 @@ const reasons = [
 function Icon({ src, size }: { src: string; size: "lg" | "md" }) {
   const box = size === "lg" ? "h-24 w-24 p-2" : "h-20 w-20 p-1.5";
   return (
-    <span className={`flex items-center justify-center rounded-2xl bg-white ring-1 ring-gray-200 ${box}`}>
+    <span className={`why-icon flex items-center justify-center rounded-2xl bg-white ring-1 ring-gray-200 ${box}`}>
       <Image src={src} alt="" width={256} height={256} className="h-full w-full object-contain" />
     </span>
   );
@@ -59,22 +62,20 @@ export default function WhyUs() {
         <p className="text-sm font-semibold tracking-wide text-gold-dark uppercase">Why MGRC</p>
         <h2 className="mt-3 font-display text-5xl font-semibold text-ink md:text-6xl">Why Us?</h2>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div data-stagger className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {/* Lead reason, featured */}
-          <article className="flex flex-col justify-between rounded-3xl bg-night p-8 text-white md:col-span-2 lg:col-span-1 lg:row-span-3">
-            <div>
+          <article className="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-night p-8 text-white md:col-span-2 lg:col-span-1 lg:row-span-3">
+            <GoldGlow subtle />
+            <div className="relative">
               <Icon src={lead.icon} size="lg" />
               <h3 className="mt-6 font-display text-4xl font-semibold">{lead.title}</h3>
               <p className="mt-4 leading-relaxed text-white/75">{lead.text}</p>
             </div>
-            <p className="mt-10 border-t border-white/15 pt-6">
-              <span className="block font-display text-7xl leading-none font-semibold text-gold">20+</span>
-              <span className="mt-2 block text-sm text-white/65">years in genomics, listed on Bursa Malaysia</span>
-            </p>
+            <HelixStat />
           </article>
 
           {reasons.map(({ icon, title, text }) => (
-            <article key={title} className="rounded-3xl border border-gray-200 p-7">
+            <article key={title} className="rounded-3xl border border-gray-200 p-7 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-lg">
               <Icon src={icon} size="md" />
               <h3 className="mt-5 text-lg font-semibold text-ink">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">{text}</p>

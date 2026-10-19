@@ -19,27 +19,30 @@ const rows: { label: string; value: (p: (typeof products)[number]) => string }[]
   { label: "Report language", value: (p) => p.languages },
 ];
 
-// Price list rows: ORIGENE, ORIGENE + PGx, LittleGENEius, LittleGENEius + PGx
+// Price list rows: ORIGENE, ORIGENE + PGx, LittleGENEius, LittleGENEius + PGx, Dtect PGx
 const pgx = getProduct("dtect-pgx")!;
-const priceRows = ["origene", "littlegeneius"].flatMap((id) => {
-  const p = getProduct(id)!;
-  const bundle = pgx.bundles?.find((b) => b.withId === id);
-  return [
-    { key: id, href: `/products/${id}/`, name: p.name, packages: p.packages },
-    ...(bundle ? [{ key: `${id}-pgx`, href: `/products/${pgx.id}/`, name: bundle.label, packages: bundle.packages }] : []),
-  ];
-});
+const priceRows = [
+  ...["origene", "littlegeneius"].flatMap((id) => {
+    const p = getProduct(id)!;
+    const bundle = pgx.bundles?.find((b) => b.withId === id);
+    return [
+      { key: id, href: `/products/${id}/`, name: p.name, packages: p.packages },
+      ...(bundle ? [{ key: `${id}-pgx`, href: "/products/#bundle-pgx", name: bundle.label, packages: bundle.packages }] : []),
+    ];
+  }),
+  { key: pgx.id, href: `/products/${pgx.id}/`, name: pgx.name, packages: pgx.packages },
+];
 
 export default function ProductsPage() {
   return (
     <>
       <PageHeader
         title="Our Products"
-        intro="Genetic tests for you, your child and your medicines. Every test uses a simple sample you collect at home."
+        intro="Genetic tests for you and your loved ones, supporting wellness and more informed medication choices. Every test uses a simple sample you collect at home."
       />
 
       <section className="py-20">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-2 lg:grid-cols-3">
+        <div data-stagger className="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
@@ -88,8 +91,8 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="font-display text-5xl font-semibold text-ink">Packages and pricing</h2>
           <p className="mt-3 max-w-2xl text-lg text-gray-600">
-            Every test comes in two packages. Choose a digital report, or add a printed copy to keep. Dtect PGx is
-            available as an add-on bundle with ORIGENE® or LittleGENEius.
+            Every test comes in two packages. Choose a digital report, or add a printed copy to keep. Dtect® PGx can
+            be ordered on its own, or bundled with ORIGENE® or LittleGENEius at a special price.
           </p>
 
           <div className="mt-8 overflow-x-auto rounded-2xl border border-gray-200 bg-white">
@@ -109,7 +112,7 @@ export default function ProductsPage() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {priceRows.map((row) => (
-                  <tr key={row.key}>
+                  <tr key={row.key} className="transition-colors hover:bg-gold-light/40">
                     <th scope="row" className="p-5 font-semibold text-ink">
                       <Link href={row.href} className="hover:text-gold-dark">
                         {row.name}

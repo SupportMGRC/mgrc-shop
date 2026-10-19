@@ -17,7 +17,7 @@ export default function Testimonials({
     <section className={`bg-mist pb-24 ${flush ? "pt-4" : "pt-24"}`}>
       <div className="mx-auto max-w-6xl px-4">
         <h2 className="font-display text-5xl font-semibold text-ink md:text-6xl">{title}</h2>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div data-stagger className="mt-12 grid gap-6 md:grid-cols-3">
           {visible.map((t) => (
             <figure key={t.id} className="flex flex-col rounded-2xl bg-white p-8">
               <span className="font-display text-6xl leading-none text-gold" aria-hidden>

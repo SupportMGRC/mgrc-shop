@@ -17,7 +17,7 @@ export default function HowItWorksPage() {
       <PageHeader title="How It Works" intro={stepsIntro} />
 
       <section className="py-24">
-        <ol className="mx-auto max-w-5xl space-y-20 px-4">
+        <ol data-stagger className="mx-auto max-w-5xl space-y-20 px-4">
           {steps.map((step, i) => (
             <li
               key={step.title}
@@ -33,7 +33,7 @@ export default function HowItWorksPage() {
                 />
               </div>
               <div>
-                <span className="text-6xl font-bold text-gold tabular-nums">0{i + 1}</span>
+                <span className="step-num inline-block text-6xl font-bold text-gold tabular-nums">0{i + 1}</span>
                 <h2 className="mt-2 font-display text-5xl font-semibold text-ink">{step.title}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-gray-700">{step.text}</p>
                 {step.note && (

@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 
 // How It Works: one player with language tabs. The three videos are the same film
 // with different burned-in subtitles. Only the chosen language loads.
-// Files: public/videos/sample-collection-<lang>.mp4 (720p, compressed from Genomics' originals).
+// Files: public/videos/sample-collection-<lang>.mp4 (720p, compressed from Genomics' originals,
+// sample_collection_*_191026.mp4 — updated 20 Oct 2026).
 const languages = [
   { id: "en", label: "English" },
   { id: "ms", label: "Bahasa Melayu" },
