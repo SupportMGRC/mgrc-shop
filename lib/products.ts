@@ -41,7 +41,7 @@ export type Product = {
 };
 
 const ESSENTIAL = "Digital Report";
-const PREMIUM = "Digital Report + Printed Report";
+const PREMIUM = "Digital Report + Hardcover Report";
 
 export const products: Product[] = [
   {

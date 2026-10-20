@@ -91,7 +91,7 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="font-display text-5xl font-semibold text-ink">Packages and pricing</h2>
           <p className="mt-3 max-w-2xl text-lg text-gray-600">
-            Every test comes in two packages. Choose a digital report, or add a printed copy to keep. Dtect® PGx can
+            Every test comes in two packages. Choose a digital report, or add a hardcover copy to keep. Dtect® PGx can
             be ordered on its own, or bundled with ORIGENE® or LittleGENEius at a special price.
           </p>
 
@@ -106,7 +106,7 @@ export default function ProductsPage() {
                   </th>
                   <th scope="col" className="bg-gold-light p-5">
                     <span className="block font-display text-2xl font-semibold text-ink">Premium Package</span>
-                    <span className="text-sm font-normal text-gray-600">Digital Report + Printed Report</span>
+                    <span className="text-sm font-normal text-gray-600">Digital Report + Hardcover Report</span>
                   </th>
                 </tr>
               </thead>

@@ -7,6 +7,7 @@
 //      This writes the page images to public/images/reports/<id>/<lang>/
 //   3. Update the entry below (page count, languages).
 // Current files: content_13102026 sample reports (watermarked), 20 Oct 2026.
+// LittleGENEius EN/ZH replaced with the new 13-page watermarked previews, 20 Oct 2026.
 // Descriptions are drafts — confirm wording with Genomics before launch.
 
 export type ReportEdition = {
@@ -42,8 +43,8 @@ export const sampleReports: SampleReport[] = [
       "Genetic screening for children covering personality, emotional intelligence, learning and sports potential, childhood conditions and nutrition, with a guide for parents.",
     cover: "/images/reports/littlegeneius-cover.jpg",
     editions: [
-      { lang: "en", label: "English", pages: 17 },
-      { lang: "zh", label: "中文", pages: 17 },
+      { lang: "en", label: "English", pages: 13 },
+      { lang: "zh", label: "中文", pages: 13 },
     ],
   },
   {

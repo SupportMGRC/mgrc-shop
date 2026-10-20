@@ -4,13 +4,13 @@ import HelixStat from "@/components/home/HelixStat";
 
 // "Why Us?" — wording and icons from the Genomics content files (content_06102026.docx;
 // reliability wording and black-and-white icons updated from content_07102026.docx).
-// Kept by Noor: "cheek (buccal) swab", the "Why MGRC" label and the "20+ years" line
+// Kept by Noor: "cheek (buccal) swab", the "Why MGRC" label and the "22 years" line
 // ("listed on Bursa Malaysia" removed here in content_13102026 — it is already in the hero).
 // Icons are the original images from that file, cropped only (public/images/icons/why-us/).
 const lead = {
   icon: "/images/icons/why-us/expertise.png",
   title: "Expertise Behind Every Insight",
-  text: "As one of Malaysia's pioneering genomics companies, we combine over 20 years of scientific expertise with advanced in-house laboratory capabilities. Our team of genetics, bioinformatics, and healthcare professionals transforms complex genetic data into accurate, reliable, and actionable insights, ensuring the highest standards of quality at every step.",
+  text: "As one of Malaysia's pioneering genomics companies, we combine over 22 years of scientific expertise with advanced in-house laboratory capabilities. Our team of genetics, bioinformatics, and healthcare professionals transforms complex genetic data into accurate, reliable, and actionable insights, ensuring the highest standards of quality at every step.",
 };
 
 const reasons = [

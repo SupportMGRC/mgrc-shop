@@ -1,5 +1,5 @@
 // FAQ list — questions, answers and order exactly as in the Genomics content file (content_06102026.docx).
-// Asian ancestry question added from content_13102026.docx (placed 2nd).
+// Asian populations question added from content_13102026.docx (placed 2nd).
 
 export type Faq = {
   q: string;
@@ -13,8 +13,8 @@ export const faqs: Faq[] = [
     a: "No. Your DNA remains essentially the same throughout your life, which means your genetic test only needs to be performed once.",
   },
   {
-    q: "Can I use this service if I am not of Asian ancestry?",
-    a: "Our analysis platform has been specifically developed and validated using reference data from East and Southeast Asian populations. To ensure the accuracy and relevance of the results we provide, we currently accept samples from individuals of Asian ancestry only.",
+    q: "Can I use this service if I am not from an Asian population?",
+    a: "Our analysis platform has been specifically developed and validated using reference data from East and Southeast Asian populations. To ensure the accuracy and relevance of the results we provide, we currently accept samples from individuals from Asian populations only.",
   },
   {
     q: "How is the DNA sample collected at home?",

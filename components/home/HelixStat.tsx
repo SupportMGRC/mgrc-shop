@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 // Why Us lead card: a slowly moving DNA helix (fills the empty space on large screens)
-// and the "20+ years in genomics" number, which counts up from 0 when it scrolls into view.
+// and the "22 years in genomics" number, which counts up from 0 when it scrolls into view.
 // The helix is pure SVG + CSS ("helix" in app/globals.css). With "reduce motion" on,
-// the helix stays still and the number simply shows 20+.
+// the helix stays still and the number simply shows 22.
 
-const YEARS = 20;
+const YEARS = 22;
 const PERIOD = 160; // height of one full twist
 const AMP = 62; // how wide the helix is
 const CX = 100; // centre line
@@ -97,10 +97,9 @@ function CountUp() {
 
   return (
     <span ref={ref} className="block font-display text-8xl leading-none font-semibold text-gold tabular-nums md:text-9xl">
-      <span className="sr-only">20+</span>
+      <span className="sr-only">22</span>
       <span aria-hidden>
         {value}
-        {value === YEARS ? "+" : ""}
       </span>
     </span>
   );

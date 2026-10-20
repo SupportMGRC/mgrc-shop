@@ -46,7 +46,6 @@ export default function VideoTestimonials({
               <p className="mt-3 text-sm font-semibold text-ink">
                 {productName(v.product)} · {v.title}
               </p>
-              <p className="text-xs text-gray-500">{v.duration}</p>
             </li>
           ))}
         </ul>

@@ -7,7 +7,7 @@ import { whatsappLink } from "@/lib/site";
 import GoldGlow from "@/components/GoldGlow";
 
 const trustPoints = [
-  "20+ years in genomics, listed on Bursa Malaysia",
+  "22 years in genomics, listed on Bursa Malaysia",
   "Simple cheek swab, collected at home",
   "Reports in English and 中文",
 ];
