@@ -41,7 +41,7 @@ export const steps: Step[] = [
     title: "Receive Your Report",
     image: "/images/how-it-works/step-4.jpg",
     text: "Once your sample has been received and analysed, your personalised DNA report will be prepared within 21 days. Your report will be sent to you via email in digital format.",
-    note: "For Premium orders, an additional 7 days is required for the printed hardcopy report to be prepared and delivered to you.",
+    note: "For Premium orders, an additional 7 days is required for the hardcover or printed report to be prepared and delivered to you.",
     short: "Your digital report, emailed within 21 days.",
     icon: "report",
   },

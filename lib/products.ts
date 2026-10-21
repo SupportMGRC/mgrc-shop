@@ -41,7 +41,9 @@ export type Product = {
 };
 
 const ESSENTIAL = "Digital Report";
-const PREMIUM = "Digital Report + Hardcover Report";
+// Premium: only ORIGENE comes with a hardcover report; LittleGENEius and Dtect PGx come with a printed report.
+const PREMIUM_HARDCOVER = "Digital Report + Hardcover Report";
+const PREMIUM_PRINTED = "Digital Report + Printed Report";
 
 export const products: Product[] = [
   {
@@ -66,7 +68,7 @@ export const products: Product[] = [
     languages: "English, 中文",
     packages: [
       { tier: "Essential", includes: ESSENTIAL, price: "RM2200" },
-      { tier: "Premium", includes: PREMIUM, price: "RM2450" },
+      { tier: "Premium", includes: PREMIUM_HARDCOVER, price: "RM2450" },
     ],
     bundles: null,
     website: "https://origene.com.my/",
@@ -103,7 +105,7 @@ export const products: Product[] = [
     languages: "English, 中文",
     packages: [
       { tier: "Essential", includes: ESSENTIAL, price: "RM1800" },
-      { tier: "Premium", includes: PREMIUM, price: "RM1900" },
+      { tier: "Premium", includes: PREMIUM_PRINTED, price: "RM1900" },
     ],
     bundles: null,
     website: "https://littlegeneius.mgrc.com.my/",
@@ -134,26 +136,26 @@ export const products: Product[] = [
     sampleType: "Cheek swab",
     turnaround: "Within 21 days",
     languages: "English",
-    // Sold on its own from content_13102026.docx. Bundle prices unchanged (content_07102026.docx, 8 Oct 2026).
+    // Sold on its own from content_13102026.docx. LittleGENEius + PGx Premium RM2850 → RM2700 (21 Oct 2026).
     packages: [
       { tier: "Essential", includes: ESSENTIAL, price: "RM2500" },
-      { tier: "Premium", includes: PREMIUM, price: "RM2600" },
+      { tier: "Premium", includes: PREMIUM_PRINTED, price: "RM2600" },
     ],
     bundles: [
       {
         withId: "origene",
         label: "ORIGENE® + PGx",
         packages: [
-          { tier: "Essential", includes: ESSENTIAL, price: "RM3000" },
-          { tier: "Premium", includes: PREMIUM, price: "RM3250" },
+          { tier: "Essential", includes: "Digital Reports", price: "RM3000" },
+          { tier: "Premium", includes: "Digital Reports + Hardcover (ORIGENE®) and Printed (Dtect® PGx) Reports", price: "RM3250" },
         ],
       },
       {
         withId: "littlegeneius",
         label: "LittleGENEius + PGx",
         packages: [
-          { tier: "Essential", includes: ESSENTIAL, price: "RM2600" },
-          { tier: "Premium", includes: PREMIUM, price: "RM2850" },
+          { tier: "Essential", includes: "Digital Reports", price: "RM2600" },
+          { tier: "Premium", includes: "Digital Reports + Printed Reports", price: "RM2700" },
         ],
       },
     ],
@@ -177,7 +179,7 @@ export function fromPrice(p: Product) {
 }
 
 // Extra cost of adding Dtect PGx to a test, as "from +RMxxx" (the smallest difference across
-// Essential and Premium — e.g. LittleGENEius: +RM800 Essential, +RM950 Premium).
+// Essential and Premium — e.g. LittleGENEius: +RM800 Essential, +RM800 Premium).
 export function pgxAddOn(baseId: string) {
   const base = getProduct(baseId);
   const bundle = getProduct("dtect-pgx")?.bundles?.find((b) => b.withId === baseId);

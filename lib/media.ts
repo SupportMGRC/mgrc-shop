@@ -6,7 +6,7 @@
 // true  = show grey boxes / sample text where content is still missing
 //         (use this when reviewing the site with Genomics)
 // false = hide missing testimonials, logos and numbers so the site looks finished
-export const SHOW_PLACEHOLDERS = true;
+export const SHOW_PLACEHOLDERS = false;
 
 export const media = {
   // Homepage hero background — person or family with the kit (wide, ~2000×1200).
