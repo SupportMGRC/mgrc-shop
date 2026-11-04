@@ -73,7 +73,7 @@ video:-webkit-full-screen {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Motion - site animations (components/Motion.tsx, components/GoldGlow.tsx,
+   Motion — site animations (components/Motion.tsx, components/GoldGlow.tsx,
    components/home/HelixStat.tsx). Everything that hides content is scoped to
    html.motion, which is only set when JavaScript runs and the visitor has not
    turned on "reduce motion". Animations play once; nothing loops on content.

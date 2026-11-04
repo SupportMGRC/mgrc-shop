@@ -1,6 +1,6 @@
 import type { Buy2Row } from "@/lib/promo";
 
-// "Buy 2 (same report)" prices on the product cards - only while the promo is running.
+// "Buy 2 (same report)" prices on the product cards — only while the promo is running.
 export default function Buy2List({ rows }: { rows: Buy2Row[] }) {
   return (
     <div className="promo-only mt-4 block">

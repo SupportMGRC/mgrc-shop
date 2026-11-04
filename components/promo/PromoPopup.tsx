@@ -11,7 +11,8 @@ import { whatsappLink } from "@/lib/site";
 
 // Promo popup (text and prices in lib/promo.ts; styles under "Promo popup" in globals.css).
 // - Opens a few seconds after the page loads, only while the promo is running.
-// - Shows once per visitor: after it is closed it stays closed (remembered in this browser).
+// - Shows once per visit: after it is closed it stays closed while the visitor clicks around,
+//   and shows again next time they open the site in a new tab or window (sessionStorage).
 // - Close with ×, Esc, or a click outside. Not shown on the sample reports and legal pages.
 
 const DELAY_MS = 2500;
@@ -58,18 +59,18 @@ export default function PromoPopup() {
     setOpen(false);
     if (activePromo) {
       try {
-        localStorage.setItem(storageKey(activePromo.id), "1");
+        sessionStorage.setItem(storageKey(activePromo.id), "1");
       } catch {}
     }
     (lastFocus.current as HTMLElement | null)?.focus?.();
   }, []);
 
-  // Decide whether to open (once per visitor, after a short delay)
+  // Decide whether to open (once per visit, after a short delay)
   useEffect(() => {
     if (!activePromo || !isPromoRunning()) return;
     if (SKIP_PATHS.some((p) => pathname.startsWith(p))) return;
     try {
-      if (localStorage.getItem(storageKey(activePromo.id))) return;
+      if (sessionStorage.getItem(storageKey(activePromo.id))) return;
     } catch {}
     const t = setTimeout(() => {
       lastFocus.current = document.activeElement;

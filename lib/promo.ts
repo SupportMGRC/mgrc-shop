@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// PROMOTIONS - the only file to edit for a promo.
+// PROMOTIONS — the only file to edit for a promo.
 //
 // Normal prices stay in lib/products.ts. While a promo is running, the site shows:
 //   • the promo bar at the top of every page
@@ -8,7 +8,7 @@
 //   • "Buy 2 (same report)" prices, if any
 //
 // It switches ON and OFF by itself at `start` and `end` (Malaysia time, +08:00), in the
-// visitor's browser - no upload needed at midnight. Upload early and it waits for `start`.
+// visitor's browser — no upload needed at midnight. Upload early and it waits for `start`.
 // After it ends, the next build leaves it out of the site completely.
 //
 // New promo: change the values below (keep the same shape), then build and upload.
@@ -46,7 +46,7 @@ export const promo: Promo | null = {
   endLabel: "30 November 2026",
   prices: {
     origene: { Essential: "RM1800", Premium: "RM2050" },
-    littlegeneius: { Essential: "RM1500", Premium: "RM1800" },
+    littlegeneius: { Essential: "RM1500", Premium: "RM1600" },
   },
   buy2: {
     origene: { Essential: "RM2800", Premium: "RM3300" },
@@ -61,7 +61,7 @@ export const promo: Promo | null = {
   },
 };
 
-// Helpers used by the components (no need to edit below)
+// ── Helpers used by the components (no need to edit below) ─────────────────
 
 const rm = (price: string) => Number(price.replace(/[^\d]/g, ""));
 
