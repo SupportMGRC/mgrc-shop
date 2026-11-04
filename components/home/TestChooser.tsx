@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { products, fromPrice } from "@/lib/products";
+import { promoFromPrice } from "@/lib/promo";
 
 // Homepage "Which test is right for you?" — a quick pointer to each product page.
 // Full details, prices and comparisons live on Our Products and the product pages.
@@ -55,7 +56,21 @@ export default function TestChooser() {
                   <div className="flex justify-between gap-4">
                     <dt className="text-white/55">Price</dt>
                     <dd className="text-right font-semibold">
-                      {fromPrice(p)}
+                      {promoFromPrice(p.id) ? (
+                        <>
+                          <span className="promo-off">{fromPrice(p)}</span>
+                          <span className="promo-only">
+                            From{" "}
+                            <s className="font-normal text-white/55">
+                              <span className="sr-only">was </span>
+                              {fromPrice(p).replace("From ", "")}
+                            </s>{" "}
+                            <span className="text-gold">{promoFromPrice(p.id)}</span>
+                          </span>
+                        </>
+                      ) : (
+                        fromPrice(p)
+                      )}
                     </dd>
                   </div>
                 </dl>

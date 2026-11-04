@@ -5,7 +5,9 @@ import ProductCard from "@/components/ProductCard";
 import CtaBand from "@/components/home/CtaBand";
 import Testimonials from "@/components/home/Testimonials";
 import MoreWaysToOrder from "@/components/MoreWaysToOrder";
-import { products, getProduct } from "@/lib/products";
+import { products, getProduct, type Package } from "@/lib/products";
+import { activePromo, buy2Rows } from "@/lib/promo";
+import PromoPrice from "@/components/promo/PromoPrice";
 
 export const metadata: Metadata = {
   title: "Our Products | MGRC Shop",
@@ -19,14 +21,19 @@ const rows: { label: string; value: (p: (typeof products)[number]) => string }[]
   { label: "Report language", value: (p) => p.languages },
 ];
 
-// Price list rows: ORIGENE, ORIGENE + PGx, LittleGENEius, LittleGENEius + PGx, Dtect PGx
+// Price list rows: ORIGENE, ORIGENE Buy 2 (promo only), ORIGENE + PGx, LittleGENEius, … Dtect PGx
+type PriceRow = { key: string; href: string; name: string; productId?: string; packages: Package[]; promoOnly?: boolean };
 const pgx = getProduct("dtect-pgx")!;
-const priceRows = [
+const priceRows: PriceRow[] = [
   ...["origene", "littlegeneius"].flatMap((id) => {
     const p = getProduct(id)!;
     const bundle = pgx.bundles?.find((b) => b.withId === id);
+    const buy2 = buy2Rows(id);
     return [
-      { key: id, href: `/products/${id}/`, name: p.name, packages: p.packages },
+      { key: id, href: `/products/${id}/`, name: p.name, productId: id, packages: p.packages },
+      ...(buy2.length
+        ? [{ key: `${id}-buy2`, href: `/products/${id}/`, name: `${p.name} · Buy 2`, packages: buy2, promoOnly: true }]
+        : []),
       ...(bundle ? [{ key: `${id}-pgx`, href: "/products/#bundle-pgx", name: bundle.label, packages: bundle.packages }] : []),
     ];
   }),
@@ -87,13 +94,19 @@ export default function ProductsPage() {
       </section>
 
       {/* Packages and pricing */}
-      <section className="bg-mist py-20">
+      <section id="pricing" className="scroll-mt-24 bg-mist py-20">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="font-display text-5xl font-semibold text-ink">Packages and pricing</h2>
           <p className="mt-3 max-w-2xl text-lg text-gray-600">
             Every test comes in two packages. Choose a digital report, or add a physical copy to keep. Dtect® PGx can
             be ordered on its own, or bundled with ORIGENE® or LittleGENEius at a special price.
           </p>
+          {activePromo && (
+            <p className="promo-only mt-4 max-w-2xl rounded-xl border border-[#ecd9b8] bg-[#fffaf1] px-4 py-3 text-gray-700">
+              <strong className="text-ink">{activePromo.name}:</strong> promo prices until {activePromo.endLabel}. Buy 2
+              means two of the same report. For other combinations, ask us on WhatsApp.
+            </p>
+          )}
 
           <div className="mt-8 overflow-x-auto rounded-2xl border border-gray-200 bg-white">
             <table className="w-full min-w-[560px] text-left">
@@ -112,18 +125,41 @@ export default function ProductsPage() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {priceRows.map((row) => (
-                  <tr key={row.key} className="transition-colors hover:bg-gold-light/40">
+                  <tr
+                    key={row.key}
+                    className={`transition-colors hover:bg-gold-light/40 ${row.promoOnly ? "promo-only bg-[#fffaf1]" : ""}`}
+                  >
                     <th scope="row" className="p-5 font-semibold text-ink">
                       <Link href={row.href} className="hover:text-gold-dark">
                         {row.name}
                       </Link>
+                      {activePromo && (row.promoOnly || (row.productId && activePromo.prices[row.productId])) && (
+                        <span className="promo-only ml-2 inline-block rounded-md bg-[#C9A55C] px-2 py-0.5 align-middle text-[10px] font-bold tracking-wider text-ink uppercase">
+                          Promo
+                        </span>
+                      )}
                     </th>
                     {row.packages.map((pkg) => (
                       <td
                         key={pkg.tier}
                         className={`p-5 text-xl font-bold text-ink tabular-nums ${pkg.tier === "Premium" ? "bg-gold-light/50" : ""}`}
                       >
-                        {pkg.price}
+                        {row.productId ? (
+                          <PromoPrice productId={row.productId} pkg={pkg} />
+                        ) : "was" in pkg ? (
+                          <span className="inline-flex flex-wrap items-baseline gap-x-2">
+                            <s className="text-[0.7em] font-medium text-gray-500">
+                              <span className="sr-only">Was </span>
+                              {String(pkg.was)}
+                            </s>
+                            <span>
+                              <span className="sr-only">Now </span>
+                              {pkg.price}
+                            </span>
+                          </span>
+                        ) : (
+                          pkg.price
+                        )}
                       </td>
                     ))}
                   </tr>

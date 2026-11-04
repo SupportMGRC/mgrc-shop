@@ -222,6 +222,58 @@ button.bg-gold.rounded-full:hover {
   .faq-item[open]::details-content { block-size: auto; opacity: 1; }
 }
 
+/* ──────────────────────────────────────────────────────────────────────────
+   Promo (lib/promo.ts). The script in app/layout.tsx adds "promo-on" to <html>
+   while a promo is running. Promo-only content (promo bar, Buy 2 rows, slashed
+   prices) hides otherwise; normal prices marked "promo-off" hide during it.
+   ────────────────────────────────────────────────────────────────────────── */
+html:not(.promo-on) .promo-only { display: none !important; }
+html.promo-on .promo-off { display: none !important; }
+
+/* Promo popup (components/promo/PromoPopup.tsx) */
+@keyframes promo-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes promo-pop { from { opacity: 0; transform: translateY(24px) scale(0.94); } to { opacity: 1; transform: none; } }
+@keyframes promo-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes promo-glow {
+  0%, 100% { transform: translate(-8%, -6%) scale(1); }
+  50% { transform: translate(8%, 6%) scale(1.15); }
+}
+@keyframes promo-float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+}
+@keyframes promo-twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1); }
+}
+@keyframes promo-shine { 0% { background-position: -200% 0; } 60%, 100% { background-position: 200% 0; } }
+@keyframes promo-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(242 169 59 / 0.55); }
+  50% { box-shadow: 0 0 0 10px rgb(242 169 59 / 0); }
+}
+@keyframes promo-spin { to { transform: rotate(360deg); } }
+
+.promo-backdrop { animation: promo-fade 0.3s ease-out both; }
+.promo-pop { animation: promo-pop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.promo-up { animation: promo-up 0.5s ease-out both; }
+.promo-glow { animation: promo-glow 9s ease-in-out infinite; }
+.promo-float { transform: rotate(var(--r, 0deg)); animation: promo-float 7s ease-in-out infinite; }
+.promo-twinkle { animation: promo-twinkle 2.6s ease-in-out infinite; }
+.promo-ring { animation: promo-spin 40s linear infinite; }
+.promo-pulse { animation: promo-pulse 2.2s ease-out 1s 4; }
+.promo-shine {
+  color: #c9a55c;
+  background: linear-gradient(100deg, #c9a55c 20%, #fff3d1 45%, #c9a55c 70%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: promo-shine 4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .promo-shine { background: none; -webkit-text-fill-color: #c9a55c; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
 }

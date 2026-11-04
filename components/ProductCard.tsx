@@ -4,12 +4,17 @@ import { FiArrowUpRight, FiBookOpen, FiCheck } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import type { Product } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
+import { activePromo, buy2Rows, hasPromo } from "@/lib/promo";
+import PromoPrice from "@/components/promo/PromoPrice";
+import Buy2List from "@/components/promo/Buy2List";
 
 const orderBtn =
   "inline-flex items-center justify-center gap-2 rounded-full bg-gold px-4 py-3 font-semibold text-ink transition-colors hover:bg-[#e39a2a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
 
 export default function ProductCard({ product }: { product: Product }) {
   const pageUrl = `/products/${product.id}/`;
+  const onPromo = hasPromo(product.id);
+  const buy2 = buy2Rows(product.id);
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl">
@@ -33,6 +38,11 @@ export default function ProductCard({ product }: { product: Product }) {
               className="w-36 rounded-t-sm shadow-2xl transition-transform duration-500 group-hover:-translate-y-2"
             />
           </div>
+        )}
+        {onPromo && activePromo && (
+          <span className="promo-only absolute top-3.5 left-3.5 rounded-md bg-[#C9A55C] px-2.5 py-1 text-[11px] font-bold tracking-wider text-ink uppercase">
+            {activePromo.name}
+          </span>
         )}
       </Link>
 
@@ -87,20 +97,51 @@ export default function ProductCard({ product }: { product: Product }) {
                   {pkg.tier}
                   <span className="block text-xs text-gray-500">{pkg.includes}</span>
                 </dt>
-                <dd className="text-base font-bold text-ink">{pkg.price}</dd>
+                <dd className="text-right text-base font-bold text-ink">
+                  <PromoPrice productId={product.id} pkg={pkg} stacked />
+                </dd>
               </div>
             ))}
           </dl>
+          {buy2.length > 0 && <Buy2List rows={buy2} />}
+          {onPromo && activePromo && (
+            <p className="promo-only mt-3 text-xs text-gray-600">
+              Mixing products?{" "}
+              <a
+                href={whatsappLink(`Hi MGRC, I'd like to ask about the ${activePromo.name} for different products.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-gold-dark underline underline-offset-4"
+              >
+                Ask us on WhatsApp
+              </a>{" "}
+              · Ends {activePromo.endLabel}
+            </p>
+          )}
+          {!onPromo && activePromo && (
+            <p className="promo-only mt-3 text-xs text-gray-500">Not part of the {activePromo.name} · normal price</p>
+          )}
           <div className="mt-4 grid gap-2">
             <a
               href={whatsappLink(`Hi MGRC, I'd like to order ${product.name}.`)}
               target="_blank"
               rel="noopener noreferrer"
-              className={orderBtn}
+              className={`${orderBtn} ${onPromo ? "promo-off" : ""}`}
             >
               <FaWhatsapp aria-hidden />
               Order via WhatsApp
             </a>
+            {onPromo && activePromo && (
+              <a
+                href={whatsappLink(`Hi MGRC, I'd like to order ${product.name} (${activePromo.name}).`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`promo-only ${orderBtn}`}
+              >
+                <FaWhatsapp aria-hidden />
+                Order via WhatsApp
+              </a>
+            )}
           </div>
           <Link
             href={pageUrl}

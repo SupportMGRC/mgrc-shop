@@ -14,6 +14,8 @@ import { videoTestimonials, testimonials } from "@/lib/testimonials";
 import CtaBand from "@/components/home/CtaBand";
 import { products, getProduct, pgxAddOn } from "@/lib/products";
 import { whatsappLink } from "@/lib/site";
+import { activePromo, buy2Rows, hasPromo } from "@/lib/promo";
+import PromoPrice from "@/components/promo/PromoPrice";
 
 export function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
@@ -46,6 +48,8 @@ export default async function ProductPage({ params }: Props) {
   const pgx = getProduct("dtect-pgx");
   const addOn = product.id === "dtect-pgx" ? null : pgxAddOn(product.id);
   const quotes = testimonials.filter((t) => t.productId === product.id);
+  const onPromo = hasPromo(product.id);
+  const buy2 = buy2Rows(product.id);
 
   return (
     <>
@@ -91,21 +95,59 @@ export default async function ProductPage({ params }: Props) {
             </dl>
 
             <div className="mt-8 rounded-2xl border-2 border-gold p-6">
+              {onPromo && activePromo && (
+                <p className="promo-only mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-700">
+                  <span className="rounded-md bg-[#C9A55C] px-2.5 py-1 text-[11px] font-bold tracking-wider text-ink uppercase">
+                    {activePromo.name}
+                  </span>
+                  Until {activePromo.endLabel}
+                </p>
+              )}
               <div className="grid gap-3 sm:grid-cols-2">
                 {product.packages.map((pkg) => (
                   <div key={pkg.tier} className="rounded-xl bg-mist p-4">
                     <p className="text-sm font-semibold text-gray-600">{pkg.tier} Package</p>
-                    <p className="mt-1 text-3xl font-bold text-ink">{pkg.price}</p>
+                    <p className="mt-1 text-3xl font-bold text-ink">
+                      <PromoPrice productId={product.id} pkg={pkg} />
+                    </p>
                     <p className="mt-1 text-sm text-gray-600">{pkg.includes}</p>
                   </div>
                 ))}
               </div>
+              {buy2.length > 0 && (
+                <div className="promo-only mt-3 grid gap-3 sm:grid-cols-2">
+                  {buy2.map((row) => (
+                    <div key={row.tier} className="rounded-xl border border-[#ecd9b8] bg-[#fffaf1] p-4">
+                      <p className="text-sm font-semibold text-gold-dark">Buy 2 · {row.tier}</p>
+                      <p className="mt-1 flex flex-wrap items-baseline gap-x-2 text-3xl font-bold text-ink">
+                        <s className="text-[0.7em] font-medium text-gray-500"><span className="sr-only">Was </span>{row.was}</s>
+                        <span><span className="sr-only">Now </span>{row.price}</span>
+                      </p>
+                      <p className="mt-1 text-sm text-gray-600">2 × same report · save {row.save}</p>
+                    </div>
+                  ))}
+                  <p className="text-sm text-gray-600 sm:col-span-2">
+                    Mixing products? Ask us on WhatsApp and we&apos;ll help.
+                  </p>
+                </div>
+              )}
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {onPromo && activePromo && (
+                  <a
+                    href={whatsappLink(`Hi MGRC, I'd like to order ${product.name} (${activePromo.name}).`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="promo-only inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 font-semibold text-ink transition-colors hover:bg-[#e39a2a]"
+                  >
+                    <FaWhatsapp aria-hidden />
+                    Order via WhatsApp
+                  </a>
+                )}
                 <a
                   href={whatsappLink(`Hi MGRC, I'd like to order ${product.name}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 font-semibold text-ink transition-colors hover:bg-[#e39a2a]"
+                  className={`${onPromo ? "promo-off " : ""}inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 font-semibold text-ink transition-colors hover:bg-[#e39a2a]`}
                 >
                   <FaWhatsapp aria-hidden />
                   Order via WhatsApp

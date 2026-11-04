@@ -6,6 +6,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Motion from "@/components/Motion";
+import PromoBar from "@/components/promo/PromoBar";
+import PromoPopup from "@/components/promo/PromoPopup";
+import { promoScript } from "@/lib/promo";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -36,16 +39,19 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
+        {promoScript && <script dangerouslySetInnerHTML={{ __html: promoScript }} />}
       </head>
       <body
         className={`${cormorant.variable} ${jakarta.variable} flex min-h-screen flex-col antialiased`}
       >
+        <PromoBar />
         <TopBar />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
         <Motion />
+        <PromoPopup />
       </body>
     </html>
   );
